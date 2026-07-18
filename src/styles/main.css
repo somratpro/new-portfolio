@@ -1,0 +1,65 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/typography";
+@plugin 'tailwind-bootstrap-grid';
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Auto-generated theme from "theme.json"*/
+@import "./generated-theme.css";
+
+@import "./safe.css";
+@import "./utilities.css";
+
+/* animation tokens used via animate-* utilities */
+@theme {
+  --animate-marquee: marquee 38s linear infinite;
+  --animate-word-rise: word-rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  --animate-orb-float: orb-float 16s ease-in-out infinite alternate;
+  --animate-pulse-dot: pulse-dot 2.4s ease-out infinite;
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* the entrance uses the translate-y-[...] utility, which Tailwind v4
+     compiles to the standalone `translate` property — animate that same
+     property here, not `transform`, or the two never interact */
+  @keyframes word-rise {
+    to {
+      translate: 0 0;
+    }
+  }
+
+  @keyframes orb-float {
+    from {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    to {
+      transform: translate3d(-6rem, 4rem, 0) scale(1.08);
+    }
+  }
+
+  @keyframes pulse-dot {
+    0% {
+      box-shadow: 0 0 0 0 rgb(34 197 94 / 0.45);
+    }
+    70% {
+      box-shadow: 0 0 0 9px transparent;
+    }
+    100% {
+      box-shadow: 0 0 0 0 transparent;
+    }
+  }
+}
+
+@layer base {
+  @import "./base.css";
+}
+
+@layer components {
+  @import "./components.css";
+  @import "./navigation.css";
+  @import "./buttons.css";
+}

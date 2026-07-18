@@ -1,0 +1,111 @@
+---
+import SectionLabel from "@/components/SectionLabel.astro";
+import { markdownify } from "@/lib/utils/textConverter";
+import {
+  FaArrowRight,
+  FaBoxArchive,
+  FaCodeBranch,
+  FaStar,
+} from "react-icons/fa6";
+
+const { projects } = Astro.props;
+
+interface Project {
+  name: string;
+  description: string;
+  url: string;
+  stars: number;
+  language: string;
+  archived?: boolean;
+}
+
+const languageColors: Record<string, string> = {
+  JavaScript: "#f1e05a",
+  TypeScript: "#3178c6",
+  Python: "#3572a5",
+  CSS: "#663399",
+  HTML: "#e34c26",
+  Go: "#00add8",
+};
+---
+
+<section id="work" class="section scroll-mt-24 pt-0">
+  <div class="container">
+    <SectionLabel index="04" text={projects.subtitle} className="mb-4" />
+    <h2
+      class="reveal mb-5 text-h3 md:text-h2 [&_em]:text-accent dark:[&_em]:text-darkmode-accent"
+      set:html={markdownify(projects.title)}
+      data-reveal
+      style="--reveal-delay:.08s"
+    />
+    <p
+      class="reveal mb-14 max-w-2xl [&_a]:border-b [&_a]:border-accent/45 [&_a]:text-text-dark [&_a]:transition-colors [&_a:hover]:border-accent [&_a:hover]:text-accent dark:[&_a]:border-darkmode-accent/45 dark:[&_a]:text-darkmode-text-dark dark:[&_a:hover]:border-darkmode-accent dark:[&_a:hover]:text-darkmode-accent"
+      set:html={markdownify(projects.content)}
+      data-reveal
+      style="--reveal-delay:.16s"
+    />
+
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {
+        projects.items.map((project: Project, index: number) => (
+          <div
+            class="reveal"
+            data-reveal
+            style={`--reveal-delay:${(index % 3) * 0.08}s`}
+          >
+            <a
+              class="group block h-full rounded-2xl border border-border bg-light/40 p-7 transition duration-300 hover:-translate-y-1.5 hover:border-accent/55 hover:shadow-xl hover:shadow-dark/10 dark:border-darkmode-border dark:bg-darkmode-light/55 dark:hover:border-darkmode-accent/55"
+              href={project.url}
+              target="_blank"
+              rel="noopener"
+            >
+              <div class="mb-5 flex items-center justify-between">
+                <FaCodeBranch className="h-5 w-5 text-text-light transition-colors group-hover:text-accent dark:text-darkmode-text-light dark:group-hover:text-darkmode-accent" />
+                <span class="flex items-center gap-2">
+                  {project.archived && (
+                    <span class="inline-flex items-center gap-1.5 rounded-full border border-border px-2.5 py-0.5 text-[0.62rem] tracking-[0.1em] text-text-light uppercase dark:border-darkmode-border dark:text-darkmode-text-light">
+                      <FaBoxArchive className="h-3 w-3" />
+                      Archived
+                    </span>
+                  )}
+                  <span class="inline-flex items-center gap-1.5 text-sm font-medium text-text-dark dark:text-darkmode-text-dark">
+                    <FaStar className="h-3.5 w-3.5 text-accent dark:text-darkmode-accent" />
+                    {project.stars}
+                  </span>
+                </span>
+              </div>
+              <h3 class="h5 !font-primary mb-2 !font-semibold transition-colors group-hover:text-accent dark:group-hover:text-darkmode-accent">
+                {project.name}
+              </h3>
+              <p class="mb-6 text-sm leading-relaxed text-text dark:text-darkmode-text">
+                {project.description}
+              </p>
+              <div class="flex items-center gap-2 font-mono text-xs tracking-[0.08em] text-text-light dark:text-darkmode-text-light">
+                <span
+                  class="inline-block h-2.5 w-2.5 rounded-full"
+                  style={`background-color:${languageColors[project.language] ?? "#8e8a81"}`}
+                  aria-hidden="true"
+                />
+                {project.language}
+              </div>
+            </a>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="reveal mt-12 text-center" data-reveal>
+      <a
+        class="group inline-flex items-center gap-2 font-mono text-[0.78rem] tracking-[0.18em] text-text-dark uppercase transition-colors hover:text-accent dark:text-darkmode-text-dark dark:hover:text-darkmode-accent"
+        href={projects.github}
+        target="_blank"
+        rel="noopener"
+      >
+        See all repositories
+        <FaArrowRight
+          className="inline-block h-3.5 w-3.5 transition-transform group-hover:translate-x-1"
+        />
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,64 @@
+---
+import SectionLabel from "@/components/SectionLabel.astro";
+import { markdownify } from "@/lib/utils/textConverter";
+import { FaArrowUpRightFromSquare } from "react-icons/fa6";
+
+const { experience } = Astro.props;
+
+interface Job {
+  role: string;
+  company: string;
+  url: string;
+  period: string;
+  description: string;
+  tags: string[];
+}
+---
+
+<section id="experience" class="section scroll-mt-24 pt-0">
+  <div class="container">
+    <SectionLabel index="02" text={experience.subtitle} className="mb-4" />
+    <h2
+      class="reveal mb-14 text-h3 md:text-h2 [&_em]:text-accent dark:[&_em]:text-darkmode-accent"
+      set:html={markdownify(experience.title)}
+      data-reveal
+      style="--reveal-delay:.08s"
+    />
+
+    <div>
+      {
+        experience.jobs.map((job: Job, index: number) => (
+          <article
+            class="reveal grid gap-4 border-t border-border py-9 last:border-b md:grid-cols-[11rem_1fr_auto] md:gap-8 dark:border-darkmode-border"
+            data-reveal
+            style={`--reveal-delay:${index * 0.08}s`}
+          >
+            <div class="pt-1.5 font-mono text-[0.78rem] tracking-[0.14em] text-text-light uppercase dark:text-darkmode-text-light">
+              {job.period}
+            </div>
+            <div>
+              <h3 class="h5 !font-primary mb-1 !font-semibold">{job.role}</h3>
+              <a
+                class="inline-flex items-center gap-2 text-sm font-medium text-accent transition-opacity hover:opacity-75 dark:text-darkmode-accent"
+                href={job.url}
+                target="_blank"
+                rel="noopener"
+              >
+                {job.company}
+                <FaArrowUpRightFromSquare className="inline-block h-3 w-3" />
+              </a>
+              <p class="mt-3 max-w-2xl">{job.description}</p>
+            </div>
+            <div class="flex flex-wrap content-start items-start gap-2 md:justify-end">
+              {job.tags.map((tag: string) => (
+                <span class="rounded-full border border-border px-3 py-1 text-xs font-medium text-text dark:border-darkmode-border dark:text-darkmode-text">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

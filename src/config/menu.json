@@ -1,0 +1,24 @@
+{
+  "main": [
+    {
+      "name": "About",
+      "url": "/#about"
+    },
+    {
+      "name": "Experience",
+      "url": "/#experience"
+    },
+    {
+      "name": "Work",
+      "url": "/#work"
+    },
+    {
+      "name": "Open Source",
+      "url": "/#opensource"
+    },
+    {
+      "name": "Services",
+      "url": "/#services"
+    }
+  ]
+}

@@ -1,0 +1,214 @@
+---
+import Logo from "@/components/Logo.astro";
+import Social from "@/components/Social.astro";
+import ThemeSwitcher from "@/components/ThemeSwitcher.astro";
+import config from "@/config/config.json";
+import menu from "@/config/menu.json";
+import social from "@/config/social.json";
+import { IoSearch } from "react-icons/io5";
+
+export interface ChildNavigationLink {
+  name: string;
+  url: string;
+}
+
+export interface NavigationLink {
+  name: string;
+  url: string;
+  hasChildren?: boolean;
+  children?: ChildNavigationLink[];
+}
+
+const { main }: { main: NavigationLink[] } = menu;
+const { navigation_button, settings } = config;
+const { pathname } = Astro.url;
+
+const ghostSocials =
+  "social-icons [&_li_a]:rounded-full [&_li_a]:border [&_li_a]:border-border [&_li_a]:bg-transparent [&_li_a]:text-text-dark [&_li_a]:transition [&_li_a:hover]:-translate-y-0.5 [&_li_a:hover]:border-accent [&_li_a:hover]:text-accent dark:[&_li_a]:border-darkmode-border dark:[&_li_a]:text-darkmode-text-dark dark:[&_li_a:hover]:border-darkmode-accent dark:[&_li_a:hover]:text-darkmode-accent";
+---
+
+<header
+  class={`header z-30 transition-[padding,background-color,box-shadow] duration-300 [&.is-scrolled]:py-3 [&.is-scrolled]:bg-body/95 [&.is-scrolled]:shadow-[0_1px_0_var(--color-border)] dark:[&.is-scrolled]:bg-darkmode-body/95 dark:[&.is-scrolled]:shadow-[0_1px_0_var(--color-darkmode-border)] ${settings.sticky_header && "sticky top-0"}`}
+>
+  <nav class="navbar container">
+    <!-- logo -->
+    <div class="order-0">
+      <Logo />
+    </div>
+    <!-- navbar toggler -->
+    <input id="nav-toggle" type="checkbox" class="hidden" />
+    <label
+      for="nav-toggle"
+      class="order-3 cursor-pointer flex items-center lg:hidden text-text-dark dark:text-white lg:order-1"
+      aria-label="Open menu"
+    >
+      <svg id="show-button" class="h-6 fill-current block" viewBox="0 0 20 20">
+        <title>Menu Open</title>
+        <path d="M0 3h20v2H0V3z m0 6h20v2H0V9z m0 6h20v2H0V0z"></path>
+      </svg>
+      <svg id="hide-button" class="h-6 fill-current hidden" viewBox="0 0 20 20">
+        <title>Menu Close</title>
+        <polygon
+          points="11 9 22 9 22 11 11 11 11 22 9 22 9 11 -2 11 -2 9 9 9 9 -2 11 -2"
+          transform="rotate(45 10 10)"></polygon>
+      </svg>
+    </label>
+    <!-- /navbar toggler -->
+
+    <!-- desktop nav (lg and up only — mobile uses the full-screen panel below) -->
+    <ul
+      class="navbar-nav order-3 hidden lg:order-1 lg:flex lg:w-auto lg:items-center lg:space-x-2 xl:space-x-8"
+    >
+      {
+        main.map((menu) => (
+          <>
+            {menu.hasChildren ? (
+              <li class="nav-item nav-dropdown group relative">
+                <input
+                  type="checkbox"
+                  id={`submenu-${menu.name}`}
+                  class="peer hidden lg:hidden"
+                />
+                <label
+                  for={`submenu-${menu.name}`}
+                  class={`nav-link inline-flex items-center ${
+                    menu.children?.map(({ url }) => url).includes(pathname) ||
+                    menu.children
+                      ?.map(({ url }) => `${url}/`)
+                      .includes(pathname)
+                      ? "active"
+                      : ""
+                  }`}
+                >
+                  {menu.name}
+                  <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20">
+                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                  </svg>
+                </label>
+                <ul class="nav-dropdown-list hidden peer-checked:block lg:invisible lg:absolute lg:block lg:opacity-0 lg:group-hover:visible lg:group-hover:opacity-100">
+                  {menu.children?.map((child) => (
+                    <li class="nav-dropdown-item">
+                      <a
+                        href={child.url}
+                        aria-label={child.name}
+                        class={`nav-dropdown-link block ${
+                          (pathname === `${child.url}/` ||
+                            pathname === child.url) &&
+                          "active"
+                        }`}
+                      >
+                        {child.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ) : (
+              <li class="nav-item">
+                <a
+                  href={menu.url}
+                  class={`nav-link block [&.active]:text-accent dark:[&.active]:text-darkmode-accent ${
+                    (pathname === `${menu.url}/` || pathname === menu.url) &&
+                    "active"
+                  }`}
+                >
+                  {menu.name}
+                </a>
+              </li>
+            )}
+          </>
+        ))
+      }
+    </ul>
+
+    <div class="order-1 ml-auto flex items-center md:order-2 lg:ml-0">
+      {
+        settings.search && (
+          <button
+            class="border-border text-text-dark hover:text-primary dark:border-darkmode-border mr-5 inline-block border-r pr-5 text-xl dark:text-white dark:hover:text-darkmode-primary"
+            aria-label="search"
+            data-search-trigger
+          >
+            <IoSearch />
+          </button>
+        )
+      }
+      <ThemeSwitcher className="mr-5" />
+      {
+        navigation_button.enable && (
+          <a
+            class="btn btn-outline-primary btn-sm hidden lg:inline-block"
+            href={navigation_button.link}
+            target={
+              navigation_button.link.startsWith("http") ? "_blank" : "_self"
+            }
+            rel={navigation_button.link.startsWith("http") ? "noopener" : ""}
+          >
+            {navigation_button.label}
+          </a>
+        )
+      }
+    </div>
+  </nav>
+
+  <!-- mobile full-screen menu panel -->
+  <div
+    id="mobile-menu"
+    class="fixed inset-0 z-40 flex flex-col overflow-y-auto bg-body opacity-0 pointer-events-none transition-opacity duration-300 [&.is-open]:opacity-100 [&.is-open]:pointer-events-auto lg:hidden dark:bg-darkmode-body"
+  >
+    <div class="container flex items-center justify-between py-6">
+      <Logo />
+      <label
+        for="nav-toggle"
+        class="flex h-10 w-10 items-center justify-center rounded-full border border-border text-text-dark transition hover:border-accent hover:text-accent dark:border-darkmode-border dark:text-darkmode-text-dark dark:hover:border-darkmode-accent dark:hover:text-darkmode-accent"
+        aria-label="Close menu"
+      >
+        <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+          <polygon points="11 9 22 9 22 11 11 11 11 22 9 22 9 11 -2 11 -2 9 9 9 9 -2 11 -2" transform="rotate(45 10 10)"></polygon>
+        </svg>
+      </label>
+    </div>
+
+    <nav class="container flex flex-1 flex-col justify-center gap-1 py-8">
+      {
+        main.map((menu, i: number) => (
+          <a
+            href={menu.url}
+            data-mobile-link
+            class="group flex items-baseline gap-4 border-b border-border py-4 opacity-0 -translate-y-3 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] [.is-open_&]:opacity-100 [.is-open_&]:translate-y-0 dark:border-darkmode-border"
+            style={`transition-delay:${(0.12 + i * 0.06).toFixed(2)}s`}
+          >
+            <span class="font-mono text-sm text-accent dark:text-darkmode-accent">
+              {String(i + 1).padStart(2, "0")}
+            </span>
+            <span class="font-secondary text-3xl text-text-dark transition-colors group-hover:text-accent dark:text-darkmode-text-dark dark:group-hover:text-darkmode-accent">
+              {menu.name}
+            </span>
+          </a>
+        ))
+      }
+    </nav>
+
+    <div
+      class="container flex flex-col items-center gap-6 border-t border-border py-8 opacity-0 transition-all duration-500 [.is-open_&]:opacity-100 dark:border-darkmode-border"
+      style={`transition-delay:${(0.12 + main.length * 0.06).toFixed(2)}s`}
+    >
+      {
+        navigation_button.enable && (
+          <a
+            data-mobile-link
+            class="btn btn-primary"
+            href={navigation_button.link}
+            target={
+              navigation_button.link.startsWith("http") ? "_blank" : "_self"
+            }
+            rel={navigation_button.link.startsWith("http") ? "noopener" : ""}
+          >
+            {navigation_button.label}
+          </a>
+        )
+      }
+      <Social source={social.main} className={ghostSocials} />
+    </div>
+  </div>
+</header>

@@ -1,0 +1,29 @@
+{
+  "main": [
+    {
+      "name": "github",
+      "icon": "FaGithub",
+      "link": "https://github.com/somratpro"
+    },
+    {
+      "name": "x",
+      "icon": "FaXTwitter",
+      "link": "https://x.com/somratpro"
+    },
+    {
+      "name": "linkedin",
+      "icon": "FaLinkedin",
+      "link": "https://www.linkedin.com/in/somratpro"
+    },
+    {
+      "name": "facebook",
+      "icon": "FaFacebook",
+      "link": "https://www.facebook.com/somratpro"
+    },
+    {
+      "name": "instagram",
+      "icon": "FaInstagram",
+      "link": "https://www.instagram.com/somratpro"
+    }
+  ]
+}

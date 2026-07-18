@@ -1,0 +1,45 @@
+---
+import SectionLabel from "@/components/SectionLabel.astro";
+import { markdownify } from "@/lib/utils/textConverter";
+
+const { skills } = Astro.props;
+---
+
+<section id="skills" class="section scroll-mt-24 pt-0">
+  <div class="container">
+    <SectionLabel index="03" text={skills.subtitle} className="mb-4" />
+    <h2
+      class="reveal mb-14 text-h3 md:text-h2 [&_em]:text-accent dark:[&_em]:text-darkmode-accent"
+      set:html={markdownify(skills.title)}
+      data-reveal
+      style="--reveal-delay:.08s"
+    />
+
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        skills.groups.map(
+          (group: { name: string; items: string[] }, index: number) => (
+            <div
+              class="reveal"
+              data-reveal
+              style={`--reveal-delay:${index * 0.08}s`}
+            >
+              <div class="h-full border-t border-text-dark pt-6 dark:border-darkmode-text-dark">
+                <h3 class="mb-5 font-mono text-[0.72rem] font-medium tracking-[0.2em] text-text-light uppercase dark:text-darkmode-text-light">
+                  {group.name}
+                </h3>
+                <ul>
+                  {group.items.map((item: string) => (
+                    <li class="py-1.5 text-lg text-text-dark before:mr-2.5 before:text-accent before:opacity-75 before:content-['—'] dark:text-darkmode-text-dark dark:before:text-darkmode-accent">
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ),
+        )
+      }
+    </div>
+  </div>
+</section>

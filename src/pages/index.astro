@@ -1,0 +1,35 @@
+---
+import Base from "@/layouts/Base.astro";
+import { getListPage } from "@/lib/contentParser.astro";
+import About from "@/partials/home/About.astro";
+import Contact from "@/partials/home/Contact.astro";
+import Experience from "@/partials/home/Experience.astro";
+import Hero from "@/partials/home/Hero.astro";
+import OpenSource from "@/partials/home/OpenSource.astro";
+import Projects from "@/partials/home/Projects.astro";
+import Services from "@/partials/home/Services.astro";
+import Skills from "@/partials/home/Skills.astro";
+
+const homepage = await getListPage("homepage", "-index");
+const {
+  hero,
+  about,
+  experience,
+  skills,
+  projects,
+  opensource,
+  services,
+  contact,
+} = homepage.data;
+---
+
+<Base>
+  <Hero hero={hero} />
+  <About about={about} />
+  <Experience experience={experience} />
+  <Skills skills={skills} />
+  <Projects projects={projects} />
+  <OpenSource opensource={opensource} />
+  <Services services={services} />
+  <Contact contact={contact} />
+</Base>

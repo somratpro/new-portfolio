@@ -1,0 +1,171 @@
+---
+import Social from "@/components/Social.astro";
+import social from "@/config/social.json";
+import { markdownify } from "@/lib/utils/textConverter";
+
+const { hero } = Astro.props;
+const [titleBefore, titleAfter] = hero.title.split("{rotating}");
+const beforeWords = titleBefore.trim().split(/\s+/);
+const afterWords = titleAfter.trim().split(/\s+/);
+
+// staggered delay shared across every word in the headline, mask words and
+// the cycling word alike, so the whole line rises in as one left-to-right beat
+let wordIndex = 0;
+const nextDelay = () => (0.2 + wordIndex++ * 0.06).toFixed(2);
+const maskDelay = () => `--w-delay:${nextDelay()}s`;
+const revealDelay = () => `--reveal-delay:${nextDelay()}s`;
+
+const maskWord =
+  "-mb-[0.09em] mr-[0.24em] inline-block overflow-hidden pb-[0.09em] align-bottom last:mr-0";
+const maskWordInner =
+  "inline-block motion-safe:translate-y-[120%] motion-safe:animate-word-rise [animation-delay:var(--w-delay,0s)]";
+const ghostSocials =
+  "social-icons [&_li_a]:rounded-full [&_li_a]:border [&_li_a]:border-border [&_li_a]:bg-transparent [&_li_a]:text-text-dark [&_li_a]:transition [&_li_a:hover]:-translate-y-0.5 [&_li_a:hover]:border-accent [&_li_a:hover]:text-accent dark:[&_li_a]:border-darkmode-border dark:[&_li_a]:text-darkmode-text-dark dark:[&_li_a:hover]:border-darkmode-accent dark:[&_li_a:hover]:text-darkmode-accent";
+---
+
+<section class="hero relative overflow-hidden">
+  <div
+    class="hero-orb pointer-events-none absolute -top-[22%] -right-[12%] h-[46rem] w-[46rem] rounded-full bg-radial from-accent/85 from-0% via-accent/35 via-40% to-transparent to-75% opacity-[0.12] motion-safe:animate-orb-float dark:from-darkmode-accent/85 dark:via-darkmode-accent/35 dark:opacity-[0.14] [&.is-tracked]:animate-none"
+    aria-hidden="true"
+  >
+  </div>
+  <div
+    class="hero-inner container relative pt-16 pb-20 will-change-transform md:pt-24 md:pb-24"
+  >
+    <div
+      class="reveal mb-10 flex flex-wrap items-center justify-between gap-4"
+      data-reveal
+    >
+      <span
+        class="inline-flex items-center gap-2.5 rounded-full border border-border bg-light/55 px-4 py-1.5 text-sm text-text dark:border-darkmode-border dark:bg-darkmode-light/55 dark:text-darkmode-text"
+      >
+        <span
+          class="h-2 w-2 rounded-full bg-green-500 motion-safe:animate-pulse-dot"
+          aria-hidden="true"></span>
+        {hero.availability}
+      </span>
+      <span
+        class="hidden font-mono text-[0.72rem] tracking-[0.22em] text-text-light uppercase sm:inline-flex dark:text-darkmode-text-light"
+        set:html={markdownify(hero.location)}
+      />
+    </div>
+
+    <p
+      class="reveal mb-4 text-lg font-medium text-text-dark md:text-xl dark:text-darkmode-text-dark"
+      data-reveal
+      style="--reveal-delay:.08s"
+    >
+      {hero.greeting}
+    </p>
+
+    <h1
+      class="font-secondary mb-8 max-w-5xl text-[clamp(2.9rem,7.5vw,5.6rem)] leading-[1.04] font-normal tracking-[-0.02em] text-text-dark dark:text-darkmode-text-dark"
+    >
+      {
+        beforeWords.map((word: string) => (
+          <span class={maskWord} style={maskDelay()}>
+            <span class={maskWordInner}>{word}</span>
+          </span>
+        ))
+      }
+      <span
+        class="reveal mr-[0.24em] inline-block align-bottom"
+        data-reveal
+        style={revealDelay()}
+      >
+        <span
+          class="relative inline-block align-bottom transition-[width] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+          data-word-cycle
+          data-words={JSON.stringify(hero.rotating_words)}
+        >
+          <span
+            class="pointer-events-none absolute inset-x-0 bottom-[0.06em] -z-10 h-[0.3em] origin-left scale-x-100 bg-accent/20 transition-transform duration-500 ease-[cubic-bezier(0.65,0,0.35,1)] dark:bg-darkmode-accent/25"
+            data-word-highlight
+            aria-hidden="true"
+          >
+          </span>
+          <span
+            class="inline-block text-accent italic opacity-100 blur-none transition-[opacity,filter] duration-300 ease-out whitespace-nowrap dark:text-darkmode-accent"
+            data-word-text
+          >
+            {hero.rotating_words[0]}
+          </span>
+        </span>
+      </span>
+      {
+        afterWords.map((word: string) => (
+          <span class={maskWord} style={maskDelay()}>
+            <span class={maskWordInner}>{word}</span>
+          </span>
+        ))
+      }
+    </h1>
+
+    <p
+      class="reveal mb-10 max-w-xl text-lg text-text dark:text-darkmode-text [&_a]:border-b [&_a]:border-accent/45 [&_a]:text-text-dark [&_a]:transition-colors [&_a:hover]:border-accent [&_a:hover]:text-accent dark:[&_a]:border-darkmode-accent/45 dark:[&_a]:text-darkmode-text-dark dark:[&_a:hover]:border-darkmode-accent dark:[&_a:hover]:text-darkmode-accent"
+      set:html={markdownify(hero.content)}
+      data-reveal
+      style="--reveal-delay:.5s"
+    />
+
+    <div
+      class="hero-cta reveal flex flex-wrap items-center gap-5"
+      data-reveal
+      style="--reveal-delay:.62s"
+    >
+      {
+        hero.buttons.map(
+          (
+            button: { enable: boolean; label: string; link: string },
+            i: number,
+          ) =>
+            button.enable && (
+              <a
+                class={`btn ${i === 0 ? "btn-primary" : "btn-outline-primary"}`}
+                href={button.link}
+                target={button.link.startsWith("http") ? "_blank" : "_self"}
+                rel="noopener"
+              >
+                {button.label}
+              </a>
+            ),
+        )
+      }
+      <Social source={social.main} className={ghostSocials} />
+    </div>
+  </div>
+
+  <div
+    class="reveal group overflow-hidden border-y border-border py-5 dark:border-darkmode-border"
+    data-reveal
+    style="--reveal-delay:.72s"
+  >
+    <div
+      class="flex w-max animate-marquee group-hover:[animation-play-state:paused] motion-reduce:w-auto motion-reduce:flex-wrap motion-reduce:animate-none"
+    >
+      {
+        [0, 1].map((copy) => (
+          <div
+            class:list={[
+              "flex items-center",
+              copy === 1 && "motion-reduce:hidden",
+            ]}
+            aria-hidden={copy === 1}
+          >
+            {hero.marquee.map((item: string) => (
+              <span class="font-secondary inline-flex items-center text-2xl text-text-light dark:text-darkmode-text-light">
+                {item}
+                <span
+                  class="mx-[1.9rem] text-[0.7rem] text-accent opacity-85 dark:text-darkmode-accent"
+                  aria-hidden="true"
+                >
+                  ✦
+                </span>
+              </span>
+            ))}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,52 @@
+---
+import SectionLabel from "@/components/SectionLabel.astro";
+import DynamicIcon from "@/helpers/DynamicIcon";
+import { markdownify } from "@/lib/utils/textConverter";
+
+const { services } = Astro.props;
+
+interface Service {
+  title: string;
+  description: string;
+  icon: string;
+}
+---
+
+<section id="services" class="section scroll-mt-24 pt-0">
+  <div class="container">
+    <SectionLabel index="06" text={services.subtitle} className="mb-4" />
+    <h2
+      class="reveal mb-14 text-h3 md:text-h2 [&_em]:text-accent dark:[&_em]:text-darkmode-accent"
+      set:html={markdownify(services.title)}
+      data-reveal
+      style="--reveal-delay:.08s"
+    />
+
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+      {
+        services.items.map((service: Service, index: number) => (
+          <div
+            class="reveal"
+            data-reveal
+            style={`--reveal-delay:${(index % 2) * 0.08}s`}
+          >
+            <div class="group flex h-full gap-5 rounded-2xl border border-border p-7 transition duration-300 hover:-translate-y-1 hover:border-accent/55 dark:border-darkmode-border dark:hover:border-darkmode-accent/55">
+              <span
+                class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent transition-colors group-hover:bg-accent/20 dark:bg-darkmode-accent/10 dark:text-darkmode-accent dark:group-hover:bg-darkmode-accent/20"
+                aria-hidden="true"
+              >
+                <DynamicIcon icon={service.icon} className="h-6 w-6" />
+              </span>
+              <div>
+                <h3 class="h5 !font-primary mb-2 !font-semibold">
+                  {service.title}
+                </h3>
+                <p>{service.description}</p>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

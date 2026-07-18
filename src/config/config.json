@@ -1,0 +1,66 @@
+{
+  "site": {
+    "title": "Somrat Sorkar — Senior Web Developer",
+    "base_url": "https://somrat.netlify.app",
+    "base_path": "/",
+    "trailing_slash": false,
+    "favicon": "/images/favicon.png",
+    "logo": "/images/logo.png",
+    "logo_darkmode": "/images/logo-darkmode.png",
+    "logo_width": "136",
+    "logo_height": "22",
+    "logo_text": "somrat"
+  },
+
+  "settings": {
+    "search": false,
+    "sticky_header": true,
+    "theme_switcher": true,
+    "default_theme": "system",
+    "pagination": 6,
+    "summary_length": 200,
+    "blog_folder": "blog"
+  },
+
+  "announcement": {
+    "enable": false,
+    "content": "",
+    "expire_days": 7
+  },
+
+  "params": {
+    "contact_form_action": "https://formspree.io/f/xzbkywqg",
+    "copyright": "© 2026 Somrat Sorkar · Crafted with Astro"
+  },
+
+  "navigation_button": {
+    "enable": true,
+    "label": "Hire Me",
+    "link": "/#contact"
+  },
+
+  "google_tag_manager": {
+    "enable": false,
+    "gtm_id": "GTM-XXXXXX"
+  },
+
+  "disqus": {
+    "enable": false,
+    "shortname": "",
+    "settings": {}
+  },
+
+  "metadata": {
+    "meta_author": "Somrat Sorkar",
+    "meta_image": "/images/og-image.png",
+    "meta_description": "Somrat Sorkar — Senior Web Developer & Dev Team Lead at Themefisher. Eight years of building fast, elegant websites, themes and open-source tools used by thousands of developers."
+  },
+
+  "llms": {
+    "generate_llms_txt": true,
+    "generate_llms_full_txt": true,
+    "generate_individual_md": true,
+    "include": [],
+    "exclude": []
+  }
+}

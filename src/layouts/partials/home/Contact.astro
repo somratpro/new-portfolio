@@ -1,0 +1,126 @@
+---
+import SectionLabel from "@/components/SectionLabel.astro";
+import Social from "@/components/Social.astro";
+import config from "@/config/config.json";
+import social from "@/config/social.json";
+import { markdownify } from "@/lib/utils/textConverter";
+import { FaLocationDot } from "react-icons/fa6";
+
+const { contact } = Astro.props;
+
+const ghostSocials =
+  "social-icons [&_li_a]:rounded-full [&_li_a]:border [&_li_a]:border-border [&_li_a]:bg-transparent [&_li_a]:text-text-dark [&_li_a]:transition [&_li_a:hover]:-translate-y-0.5 [&_li_a:hover]:border-accent [&_li_a:hover]:text-accent dark:[&_li_a]:border-darkmode-border dark:[&_li_a]:text-darkmode-text-dark dark:[&_li_a:hover]:border-darkmode-accent dark:[&_li_a:hover]:text-darkmode-accent";
+---
+
+<section id="contact" class="section scroll-mt-24 pt-0">
+  <div class="container">
+    <div class="text-center">
+      <SectionLabel
+        index="07"
+        text={contact.subtitle}
+        className="mb-4 justify-center"
+      />
+      <h2
+        class="reveal mb-6 text-h2-sm md:text-h1 [&_em]:text-accent dark:[&_em]:text-darkmode-accent"
+        set:html={markdownify(contact.title)}
+        data-reveal
+        style="--reveal-delay:.08s"
+      />
+      <p
+        class="reveal mx-auto mb-12 max-w-xl"
+        set:html={markdownify(contact.content)}
+        data-reveal
+        style="--reveal-delay:.16s"
+      />
+
+      <form
+        class="reveal mx-auto max-w-xl text-left"
+        method="POST"
+        action={config.params.contact_form_action}
+        data-reveal
+        style="--reveal-delay:.24s"
+      >
+        <div class="mb-6 grid gap-6 sm:grid-cols-2">
+          <div>
+            <label for="name" class="form-label">Name</label>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              class="form-input"
+              placeholder="Your name"
+              autocomplete="name"
+              required
+            />
+          </div>
+          <div>
+            <label for="email" class="form-label">Email</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              class="form-input"
+              placeholder="you@example.com"
+              autocomplete="email"
+              required
+            />
+          </div>
+        </div>
+        <div class="mb-8">
+          <label for="message" class="form-label">Message</label>
+          <textarea
+            id="message"
+            name="message"
+            rows="5"
+            class="form-input"
+            placeholder="Tell me about your project…"
+            required></textarea>
+        </div>
+        <input
+          type="hidden"
+          name="_subject"
+          value="New message from somrat.netlify.app"
+        />
+        <div class="flex flex-wrap items-center justify-center gap-5">
+          <button type="submit" class="btn btn-primary">Send message</button>
+          {
+            contact.buttons.map(
+              (button: { enable: boolean; label: string; link: string }) =>
+                button.enable && (
+                  <a
+                    class="btn btn-outline-primary"
+                    href={button.link}
+                    target={button.link.startsWith("http") ? "_blank" : "_self"}
+                    rel="noopener"
+                  >
+                    {button.label}
+                  </a>
+                ),
+            )
+          }
+        </div>
+      </form>
+
+      <div
+        class="reveal mt-14 flex flex-wrap items-center justify-center text-sm text-text-light dark:text-darkmode-text-light"
+        data-reveal
+        style="--reveal-delay:.32s"
+      >
+        <span>
+          <FaLocationDot
+            className="mr-2 inline-block h-3.5 w-3.5 text-accent dark:text-darkmode-accent"
+          />
+          {contact.location}
+        </span>
+      </div>
+
+      <div
+        class="reveal mt-10 flex justify-center"
+        data-reveal
+        style="--reveal-delay:.4s"
+      >
+        <Social source={social.main} className={ghostSocials} />
+      </div>
+    </div>
+  </div>
+</section>

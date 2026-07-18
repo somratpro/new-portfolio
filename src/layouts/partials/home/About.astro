@@ -1,0 +1,62 @@
+---
+import ImageMod from "@/components/ImageMod.astro";
+import SectionLabel from "@/components/SectionLabel.astro";
+import { markdownify } from "@/lib/utils/textConverter";
+
+const { about } = Astro.props;
+---
+
+<section id="about" class="section scroll-mt-24">
+  <div class="container">
+    <div class="grid items-center gap-x-12 gap-y-10 md:grid-cols-12">
+      <div class="reveal md:col-span-5 lg:col-span-4" data-reveal>
+        <div
+          class="relative max-w-[26rem] after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:translate-x-4 after:translate-y-4 after:rounded-[1.25rem] after:border after:border-accent after:opacity-45 after:content-[''] dark:after:border-darkmode-accent"
+        >
+          <ImageMod
+            src={about.image}
+            width={520}
+            height={640}
+            alt="Portrait of Somrat Sorkar"
+            format="webp"
+            class="w-full rounded-2xl saturate-[0.92]"
+            fit="cover"
+          />
+        </div>
+      </div>
+      <div class="md:col-span-7 lg:col-span-7 lg:col-start-6">
+        <SectionLabel index="01" text={about.subtitle} className="mb-4" />
+        <h2
+          class="reveal mb-6 text-h3 md:text-h2 [&_em]:text-accent dark:[&_em]:text-darkmode-accent"
+          set:html={markdownify(about.title)}
+          data-reveal
+          style="--reveal-delay:.08s"
+        />
+        <div
+          class="reveal mb-10 [&_a]:border-b [&_a]:border-accent/45 [&_a]:text-text-dark [&_a]:transition-colors [&_a:hover]:border-accent [&_a:hover]:text-accent [&_p]:mb-5 [&_p:last-child]:mb-0 dark:[&_a]:border-darkmode-accent/45 dark:[&_a]:text-darkmode-text-dark dark:[&_a:hover]:border-darkmode-accent dark:[&_a:hover]:text-darkmode-accent"
+          set:html={markdownify(about.content, true)}
+          data-reveal
+          style="--reveal-delay:.16s"
+        />
+        <dl
+          class="reveal grid grid-cols-1 gap-x-10 gap-y-5 border-t border-border pt-8 sm:grid-cols-2 dark:border-darkmode-border"
+          data-reveal
+          style="--reveal-delay:.24s"
+        >
+          {
+            about.facts.map((fact: { label: string; value: string }) => (
+              <div>
+                <dt class="mb-1.5 font-mono text-[0.7rem] tracking-[0.18em] text-text-light uppercase dark:text-darkmode-text-light">
+                  {fact.label}
+                </dt>
+                <dd class="font-medium text-text-dark dark:text-darkmode-text-dark">
+                  {fact.value}
+                </dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>

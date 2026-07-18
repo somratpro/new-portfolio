@@ -1,0 +1,25 @@
+---
+import Logo from "@/components/Logo.astro";
+import Social from "@/components/Social.astro";
+import config from "@/config/config.json";
+import social from "@/config/social.json";
+import { markdownify } from "@/lib/utils/textConverter";
+
+const ghostSocials =
+  "social-icons [&_li_a]:rounded-full [&_li_a]:border [&_li_a]:border-border [&_li_a]:bg-transparent [&_li_a]:text-text-dark [&_li_a]:transition [&_li_a:hover]:-translate-y-0.5 [&_li_a:hover]:border-accent [&_li_a:hover]:text-accent dark:[&_li_a]:border-darkmode-border dark:[&_li_a]:text-darkmode-text-dark dark:[&_li_a:hover]:border-darkmode-accent dark:[&_li_a:hover]:text-darkmode-accent";
+---
+
+<footer class="border-t border-border dark:border-darkmode-border">
+  <div class="container">
+    <div
+      class="flex flex-col items-center justify-between gap-6 py-10 text-center sm:flex-row sm:text-left"
+    >
+      <Logo />
+      <p
+        class="text-sm text-text-light dark:text-darkmode-text-light"
+        set:html={markdownify(config.params.copyright)}
+      />
+      <Social source={social.main} className={ghostSocials} />
+    </div>
+  </div>
+</footer>
