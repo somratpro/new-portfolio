@@ -31,6 +31,10 @@ hero:
     - "Bootstrap"
     - "Jekyll"
     - "MongoDB"
+    - "PostgreSQL"
+    - "Supabase"
+    - "AWS"
+    - "S3"
 
 # About
 about:
@@ -103,10 +107,14 @@ skills:
         - "Hugo"
         - "Jekyll"
         - "MDX"
-    - name: "Backend"
+    - name: "Backend & Cloud"
       items:
         - "Node.js"
+        - "PostgreSQL"
         - "MongoDB"
+        - "Supabase"
+        - "AWS"
+        - "S3"
         - "REST APIs"
     - name: "Practice"
       items:
@@ -180,7 +188,7 @@ services:
   title: "What I can *do for you*"
   items:
     - title: "Web Application Development"
-      description: "Full-stack applications with React, Next.js and Node.js — from clean architecture to smooth deployment."
+      description: "Full-stack applications with React, Next.js and Node.js, backed by PostgreSQL, Supabase or AWS — from clean architecture to smooth deployment."
       icon: "FaCode"
     - title: "Theme & Jamstack Development"
       description: "Marketplace-quality themes and static sites with Astro, Hugo and TailwindCSS. Fast by default."
