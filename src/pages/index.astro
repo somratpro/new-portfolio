@@ -2,6 +2,7 @@
 import Base from "@/layouts/Base.astro";
 import { getListPage } from "@/lib/contentParser.astro";
 import About from "@/partials/home/About.astro";
+import CompanyProjects from "@/partials/home/CompanyProjects.astro";
 import Contact from "@/partials/home/Contact.astro";
 import Experience from "@/partials/home/Experience.astro";
 import Hero from "@/partials/home/Hero.astro";
@@ -17,6 +18,7 @@ const {
   experience,
   skills,
   projects,
+  companyprojects,
   opensource,
   services,
   contact,
@@ -29,6 +31,7 @@ const {
   <Experience experience={experience} />
   <Skills skills={skills} />
   <Projects projects={projects} />
+  <CompanyProjects companyprojects={companyprojects} />
   <OpenSource opensource={opensource} />
   <Services services={services} />
   <Contact contact={contact} />

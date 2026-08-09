@@ -87,6 +87,24 @@ experience:
         - "Next.js"
         - "Node.js"
         - "MongoDB"
+    - role: "Dev Team Lead"
+      company: "Zeon Studio"
+      url: "https://zeon.studio"
+      period: "2022 — Present"
+      description: "Zeon Studio is Themefisher's AI-ready web design and marketing automation agency, building on Astro, Next.js and Hugo. I lead the dev team delivering client sites and legacy-platform migrations."
+      tags:
+        - "Leadership"
+        - "Astro"
+        - "Next.js"
+    - role: "Dev Team Lead & Core Maintainer"
+      company: "Sitepins"
+      url: "https://sitepins.com"
+      period: "2024 — Present"
+      description: "Sitepins is an open-source, Git-based headless CMS for static sites built with Astro, Next.js and Hugo. I lead development and maintain the core codebase."
+      tags:
+        - "Leadership"
+        - "Open Source"
+        - "CMS"
 
 # Skills
 skills:
@@ -161,6 +179,60 @@ projects:
       url: "https://github.com/somratpro/HuggingFlow"
       stars: 6
       language: "JavaScript"
+
+# Company Projects
+companyprojects:
+  subtitle: "Team Projects"
+  title: "Open-source I *build at work*"
+  content: "Tools I lead development on at [Zeon Studio](https://zeon.studio) and [Sitepins](https://sitepins.com) — team efforts, not solo credit."
+  links:
+    - label: "Zeon Studio on GitHub"
+      url: "https://github.com/zeon-studio"
+    - label: "Sitepins on GitHub"
+      url: "https://github.com/sitepins"
+  items:
+    - name: "hugoplate"
+      description: "Free Hugo + Tailwind CSS v4 starter template — saves hours of setup on new Hugo projects."
+      url: "https://github.com/zeon-studio/hugoplate"
+      stars: 1580
+      language: "JavaScript"
+      company: "Zeon Studio"
+    - name: "astroplate"
+      description: "Free Astro + TailwindCSS + TypeScript starter template to jump-start new Astro projects."
+      url: "https://github.com/zeon-studio/astroplate"
+      stars: 1185
+      language: "Astro"
+      company: "Zeon Studio"
+    - name: "nextplate"
+      description: "Free Next.js + TailwindCSS starter template covering almost everything a new project needs."
+      url: "https://github.com/zeon-studio/nextplate"
+      stars: 518
+      language: "TypeScript"
+      company: "Zeon Studio"
+    - name: "sitepins"
+      description: "Open-source, Git-based headless CMS for static sites — connect a repo and start editing, no schema setup."
+      url: "https://github.com/sitepins/sitepins"
+      stars: 137
+      language: "TypeScript"
+      company: "Sitepins"
+    - name: "windplate"
+      description: "HTML starter template built with Gulp and TailwindCSS."
+      url: "https://github.com/zeon-studio/windplate"
+      stars: 46
+      language: "JavaScript"
+      company: "Zeon Studio"
+    - name: "open-hr"
+      description: "Open-source HR platform for startups — employees, payroll, assets and tools."
+      url: "https://github.com/zeon-studio/open-hr"
+      stars: 43
+      language: "TypeScript"
+      company: "Zeon Studio"
+    - name: "authplate"
+      description: "Next.js starter with authentication built in — Better-Auth and Prisma/Postgres."
+      url: "https://github.com/zeon-studio/authplate"
+      stars: 12
+      language: "TypeScript"
+      company: "Zeon Studio"
 
 # Open Source
 opensource:

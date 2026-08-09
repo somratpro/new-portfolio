@@ -4,18 +4,19 @@ import { markdownify } from "@/lib/utils/textConverter";
 import {
   FaArrowRight,
   FaBoxArchive,
-  FaCodeBranch,
+  FaBuilding,
   FaStar,
 } from "react-icons/fa6";
 
-const { projects } = Astro.props;
+const { companyprojects } = Astro.props;
 
-interface Project {
+interface CompanyProject {
   name: string;
   description: string;
   url: string;
   stars: number;
   language: string;
+  company: string;
   archived?: boolean;
 }
 
@@ -30,25 +31,25 @@ const languageColors: Record<string, string> = {
 };
 ---
 
-<section id="work" class="section scroll-mt-24 pt-0">
+<section id="company-work" class="section scroll-mt-24 pt-0">
   <div class="container">
-    <SectionLabel index="04" text={projects.subtitle} className="mb-4" />
+    <SectionLabel index="05" text={companyprojects.subtitle} className="mb-4" />
     <h2
       class="reveal mb-5 text-h3 md:text-h2 [&_em]:text-accent dark:[&_em]:text-darkmode-accent"
-      set:html={markdownify(projects.title)}
+      set:html={markdownify(companyprojects.title)}
       data-reveal
       style="--reveal-delay:.08s"
     />
     <p
       class="reveal mb-14 max-w-2xl [&_a]:border-b [&_a]:border-accent/45 [&_a]:text-text-dark [&_a]:transition-colors [&_a:hover]:border-accent [&_a:hover]:text-accent dark:[&_a]:border-darkmode-accent/45 dark:[&_a]:text-darkmode-text-dark dark:[&_a:hover]:border-darkmode-accent dark:[&_a:hover]:text-darkmode-accent"
-      set:html={markdownify(projects.content)}
+      set:html={markdownify(companyprojects.content)}
       data-reveal
       style="--reveal-delay:.16s"
     />
 
     <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
       {
-        projects.items.map((project: Project, index: number) => (
+        companyprojects.items.map((project: CompanyProject, index: number) => (
           <div
             class="reveal"
             data-reveal
@@ -61,7 +62,10 @@ const languageColors: Record<string, string> = {
               rel="noopener"
             >
               <div class="mb-5 flex items-center justify-between">
-                <FaCodeBranch className="h-5 w-5 text-text-light transition-colors group-hover:text-accent dark:text-darkmode-text-light dark:group-hover:text-darkmode-accent" />
+                <span class="inline-flex items-center gap-1.5 rounded-full border border-border px-2.5 py-0.5 text-[0.62rem] tracking-[0.1em] text-text-light uppercase dark:border-darkmode-border dark:text-darkmode-text-light">
+                  <FaBuilding className="h-3 w-3" />
+                  {project.company}
+                </span>
                 <span class="flex items-center gap-2">
                   {project.archived && (
                     <span class="inline-flex items-center gap-1.5 rounded-full border border-border px-2.5 py-0.5 text-[0.62rem] tracking-[0.1em] text-text-light uppercase dark:border-darkmode-border dark:text-darkmode-text-light">
@@ -95,18 +99,20 @@ const languageColors: Record<string, string> = {
       }
     </div>
 
-    <div class="reveal mt-12 text-center" data-reveal>
-      <a
-        class="group inline-flex items-center gap-2 font-mono text-[0.78rem] tracking-[0.18em] text-text-dark uppercase transition-colors hover:text-accent dark:text-darkmode-text-dark dark:hover:text-darkmode-accent"
-        href={projects.github}
-        target="_blank"
-        rel="noopener"
-      >
-        See all repositories
-        <FaArrowRight
-          className="inline-block h-3.5 w-3.5 transition-transform group-hover:translate-x-1"
-        />
-      </a>
+    <div class="reveal mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-center" data-reveal>
+      {
+        companyprojects.links.map((link: { label: string; url: string }) => (
+          <a
+            class="group inline-flex items-center gap-2 font-mono text-[0.78rem] tracking-[0.18em] text-text-dark uppercase transition-colors hover:text-accent dark:text-darkmode-text-dark dark:hover:text-darkmode-accent"
+            href={link.url}
+            target="_blank"
+            rel="noopener"
+          >
+            {link.label}
+            <FaArrowRight className="inline-block h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+          </a>
+        ))
+      }
     </div>
   </div>
 </section>

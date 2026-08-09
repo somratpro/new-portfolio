@@ -75,6 +75,23 @@ const homepageCollection = defineCollection({
         }),
       ),
     }),
+    companyprojects: z.object({
+      subtitle: z.string(),
+      title: z.string(),
+      content: z.string(),
+      links: z.array(z.object({ label: z.string(), url: z.string() })),
+      items: z.array(
+        z.object({
+          name: z.string(),
+          description: z.string(),
+          url: z.string(),
+          stars: z.number(),
+          language: z.string(),
+          company: z.string(),
+          archived: z.boolean().optional(),
+        }),
+      ),
+    }),
     opensource: z.object({
       subtitle: z.string(),
       title: z.string(),
