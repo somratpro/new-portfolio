@@ -14,6 +14,21 @@ function initReveal() {
     return;
   }
 
+  // Immediately reveal elements that are already within the viewport on load
+  const innerHeight =
+    window.innerHeight || document.documentElement.clientHeight;
+  elements.forEach((el) => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < innerHeight && rect.bottom > 0) {
+      el.classList.add("is-revealed");
+    }
+  });
+
+  const remaining = document.querySelectorAll(
+    "[data-reveal]:not(.is-revealed)",
+  );
+  if (!remaining.length) return;
+
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -34,7 +49,7 @@ function initReveal() {
     { threshold: 0.12, rootMargin: "0px 0px -40px 0px" },
   );
 
-  elements.forEach((el) => observer.observe(el));
+  remaining.forEach((el) => observer.observe(el));
 }
 
 /* -------------------------------------------------- count-up stats */

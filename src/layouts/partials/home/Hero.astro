@@ -13,7 +13,6 @@ const afterWords = titleAfter.trim().split(/\s+/);
 let wordIndex = 0;
 const nextDelay = () => (0.2 + wordIndex++ * 0.06).toFixed(2);
 const maskDelay = () => `--w-delay:${nextDelay()}s`;
-const revealDelay = () => `--reveal-delay:${nextDelay()}s`;
 
 const maskWord =
   "-mb-[0.09em] mr-[0.24em] inline-block overflow-hidden pb-[0.09em] align-bottom last:mr-0";
@@ -33,11 +32,10 @@ const ghostSocials =
     class="hero-inner container relative pt-16 pb-20 will-change-transform md:pt-24 md:pb-24"
   >
     <div
-      class="reveal mb-10 flex flex-wrap items-center justify-between gap-4"
-      data-reveal
+      class="mb-10 flex flex-wrap items-center justify-between gap-4"
     >
       <span
-        class="inline-flex items-center gap-2.5 rounded-full border border-border bg-light/55 px-4 py-1.5 text-sm text-text dark:border-darkmode-border dark:bg-darkmode-light/55 dark:text-darkmode-text"
+        class="inline-flex items-center gap-2.5 rounded-full border border-border bg-light px-4 py-1.5 text-sm text-text dark:border-darkmode-border dark:bg-darkmode-light dark:text-darkmode-text"
       >
         <span
           class="h-2 w-2 rounded-full bg-green-500 motion-safe:animate-pulse-dot"
@@ -51,9 +49,7 @@ const ghostSocials =
     </div>
 
     <p
-      class="reveal mb-4 text-lg font-medium text-text-dark md:text-xl dark:text-darkmode-text-dark"
-      data-reveal
-      style="--reveal-delay:.08s"
+      class="mb-4 text-lg font-medium text-text-dark md:text-xl dark:text-darkmode-text-dark"
     >
       {hero.greeting}
     </p>
@@ -69,9 +65,7 @@ const ghostSocials =
         ))
       }
       <span
-        class="reveal mr-[0.24em] inline-block align-bottom"
-        data-reveal
-        style={revealDelay()}
+        class="mr-[0.24em] inline-block align-bottom"
       >
         <span
           class="relative inline-block align-bottom transition-[width] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
@@ -102,16 +96,12 @@ const ghostSocials =
     </h1>
 
     <p
-      class="reveal mb-10 max-w-xl text-lg text-text dark:text-darkmode-text [&_a]:underline [&_a]:decoration-accent/60 [&_a]:underline-offset-4 [&_a]:text-text-dark [&_a]:transition-colors [&_a:hover]:decoration-accent [&_a:hover]:text-accent dark:[&_a]:decoration-darkmode-accent/60 dark:[&_a]:text-darkmode-text-dark dark:[&_a:hover]:decoration-darkmode-accent dark:[&_a:hover]:text-darkmode-accent"
+      class="mb-10 max-w-xl text-lg text-text dark:text-darkmode-text [&_a]:underline [&_a]:decoration-accent/60 [&_a]:underline-offset-4 [&_a]:text-text-dark [&_a]:transition-colors [&_a:hover]:decoration-accent [&_a:hover]:text-accent dark:[&_a]:decoration-darkmode-accent/60 dark:[&_a]:text-darkmode-text-dark dark:[&_a:hover]:decoration-darkmode-accent dark:[&_a:hover]:text-darkmode-accent"
       set:html={markdownify(hero.content)}
-      data-reveal
-      style="--reveal-delay:.5s"
     />
 
     <div
-      class="hero-cta reveal flex flex-wrap items-center gap-5"
-      data-reveal
-      style="--reveal-delay:.62s"
+      class="hero-cta flex flex-wrap items-center gap-5"
     >
       {
         hero.buttons.map(
@@ -156,7 +146,7 @@ const ghostSocials =
               <span class="font-secondary inline-flex items-center text-2xl text-text-light dark:text-darkmode-text-light">
                 {item}
                 <span
-                  class="mx-[1.9rem] text-[0.7rem] text-accent opacity-85 dark:text-darkmode-accent"
+                  class="mx-[1.9rem] text-[0.7rem] text-accent dark:text-darkmode-accent"
                   aria-hidden="true"
                 >
                   ✦

@@ -15,5 +15,5 @@
 }
 
 .btn-invert {
-  @apply border-transparent bg-body text-text-dark dark:bg-darkmode-primary;
+  @apply border-transparent bg-body text-text-dark dark:bg-darkmode-primary dark:text-text-dark;
 }

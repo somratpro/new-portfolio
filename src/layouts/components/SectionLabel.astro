@@ -12,7 +12,7 @@ const { index, text, invert = false, className = "" } = Astro.props;
 <p
   class:list={[
     "reveal inline-flex items-center gap-2 font-mono text-[0.72rem] uppercase tracking-[0.22em]",
-    invert ? "text-light/55" : "text-text-light dark:text-darkmode-text-light",
+    invert ? "text-light/80" : "text-text-light dark:text-darkmode-text-light",
     className,
   ]}
   data-reveal
@@ -22,6 +22,6 @@ const { index, text, invert = false, className = "" } = Astro.props;
       ? "text-darkmode-accent"
       : "text-accent dark:text-darkmode-accent"}>{index}</span
   >
-  <span class="opacity-50">/</span>
+  <span class="opacity-60" aria-hidden="true">/</span>
   {text}
 </p>
