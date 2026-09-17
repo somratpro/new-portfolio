@@ -37,9 +37,9 @@ interface Job {
               {job.period}
             </div>
             <div>
-              <h3 class="h5 !font-primary mb-1 !font-semibold">{job.role}</h3>
+              <h3 class="h5 mb-1 font-primary! font-semibold!">{job.role}</h3>
               <a
-                class="inline-flex items-center gap-2 text-sm font-medium text-accent transition-opacity hover:opacity-75 dark:text-darkmode-accent"
+                class="inline-flex items-center gap-2 text-sm font-medium text-accent underline decoration-accent/50 underline-offset-2 transition-opacity hover:opacity-75 hover:decoration-accent dark:text-darkmode-accent dark:decoration-darkmode-accent/50 dark:hover:decoration-darkmode-accent"
                 href={job.url}
                 target="_blank"
                 rel="noopener"

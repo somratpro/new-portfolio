@@ -142,7 +142,9 @@ const ghostSocials =
             target={
               navigation_button.link.startsWith("http") ? "_blank" : "_self"
             }
-            rel={navigation_button.link.startsWith("http") ? "noopener" : ""}
+            rel={
+              navigation_button.link.startsWith("http") ? "noopener" : undefined
+            }
           >
             {navigation_button.label}
           </a>
@@ -202,7 +204,9 @@ const ghostSocials =
             target={
               navigation_button.link.startsWith("http") ? "_blank" : "_self"
             }
-            rel={navigation_button.link.startsWith("http") ? "noopener" : ""}
+            rel={
+              navigation_button.link.startsWith("http") ? "noopener" : undefined
+            }
           >
             {navigation_button.label}
           </a>

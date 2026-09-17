@@ -40,7 +40,7 @@ const languageColors: Record<string, string> = {
       style="--reveal-delay:.08s"
     />
     <p
-      class="reveal mb-14 max-w-2xl [&_a]:border-b [&_a]:border-accent/45 [&_a]:text-text-dark [&_a]:transition-colors [&_a:hover]:border-accent [&_a:hover]:text-accent dark:[&_a]:border-darkmode-accent/45 dark:[&_a]:text-darkmode-text-dark dark:[&_a:hover]:border-darkmode-accent dark:[&_a:hover]:text-darkmode-accent"
+      class="reveal mb-14 max-w-2xl [&_a]:underline [&_a]:decoration-accent/60 [&_a]:underline-offset-4 [&_a]:text-text-dark [&_a]:transition-colors [&_a:hover]:decoration-accent [&_a:hover]:text-accent dark:[&_a]:decoration-darkmode-accent/60 dark:[&_a]:text-darkmode-text-dark dark:[&_a:hover]:decoration-darkmode-accent dark:[&_a:hover]:text-darkmode-accent"
       set:html={markdownify(projects.content)}
       data-reveal
       style="--reveal-delay:.16s"
@@ -64,7 +64,7 @@ const languageColors: Record<string, string> = {
                 <FaCodeBranch className="h-5 w-5 text-text-light transition-colors group-hover:text-accent dark:text-darkmode-text-light dark:group-hover:text-darkmode-accent" />
                 <span class="flex items-center gap-2">
                   {project.archived && (
-                    <span class="inline-flex items-center gap-1.5 rounded-full border border-border px-2.5 py-0.5 text-[0.62rem] tracking-[0.1em] text-text-light uppercase dark:border-darkmode-border dark:text-darkmode-text-light">
+                    <span class="inline-flex items-center gap-1.5 rounded-full border border-border px-2.5 py-0.5 text-[0.62rem] tracking-widest text-text-light uppercase dark:border-darkmode-border dark:text-darkmode-text-light">
                       <FaBoxArchive className="h-3 w-3" />
                       Archived
                     </span>
@@ -75,7 +75,7 @@ const languageColors: Record<string, string> = {
                   </span>
                 </span>
               </div>
-              <h3 class="h5 !font-primary mb-2 !font-semibold transition-colors group-hover:text-accent dark:group-hover:text-darkmode-accent">
+              <h3 class="h5 mb-2 font-primary! font-semibold! transition-colors group-hover:text-accent dark:group-hover:text-darkmode-accent">
                 {project.name}
               </h3>
               <p class="mb-6 text-sm leading-relaxed text-text dark:text-darkmode-text">

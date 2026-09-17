@@ -11,10 +11,10 @@
   --color-border: #e7e4dd;
   --color-light: #f1efe9;
   --color-dark: #1a1815;
-  --color-accent: #b45309;
+  --color-accent: #a84b06;
   --color-text: #57534e;
   --color-text-dark: #1a1815;
-  --color-text-light: #8e8a81;
+  --color-text-light: #706a63;
 
   /* === Darkmode Colors === */
   --color-darkmode-primary: #f3f1ec;
@@ -25,7 +25,7 @@
   --color-darkmode-accent: #d9a552;
   --color-darkmode-text: #a8a29e;
   --color-darkmode-text-dark: #f3f1ec;
-  --color-darkmode-text-light: #78716c;
+  --color-darkmode-text-light: #9c968e;
 
   /* === Font Families === */
   --font-primary: Inter, sans-serif;

@@ -83,3 +83,36 @@ button {
 ::selection {
   @apply bg-accent text-body dark:bg-darkmode-accent dark:text-darkmode-body;
 }
+
+/* Visible keyboard focus indicators (WCAG 2.4.7 / WCAG 2.4.11) */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.dark :focus-visible,
+.dark:focus-visible {
+  outline-color: var(--color-darkmode-accent);
+}
+
+/* Ensure inline links within text blocks are distinguishable by more than color alone (WCAG 1.4.1) */
+p a:not([class*="btn"]):not([class*="nav-"]):not([data-theme-toggle]) {
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--color-accent) 60%, transparent);
+  text-underline-offset: 4px;
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+p a:not([class*="btn"]):not([class*="nav-"]):not([data-theme-toggle]):hover {
+  text-decoration-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.dark p a:not([class*="btn"]):not([class*="nav-"]):not([data-theme-toggle]) {
+  text-decoration-color: color-mix(in srgb, var(--color-darkmode-accent) 60%, transparent);
+}
+
+.dark p a:not([class*="btn"]):not([class*="nav-"]):not([data-theme-toggle]):hover {
+  text-decoration-color: var(--color-darkmode-accent);
+  color: var(--color-darkmode-accent);
+}

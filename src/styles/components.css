@@ -9,7 +9,7 @@
    which nothing in this rule ever sets. */
 @media (prefers-reduced-motion: no-preference) {
   html.js .reveal {
-    @apply translate-y-[26px] opacity-0 transition-[opacity,translate] duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] [transition-delay:var(--reveal-delay,0s)];
+    @apply translate-y-6.5 opacity-0 transition-[opacity,translate] duration-900 ease-[cubic-bezier(0.16,1,0.3,1)] delay-(--reveal-delay,0s);
   }
 
   html.js .reveal.is-revealed {
@@ -43,7 +43,7 @@
 
 /* container */
 .container {
-  @apply mx-auto xl:!max-w-[1320px] px-4;
+  @apply mx-auto xl:max-w-330! px-4;
 }
 
 /* social icons */
@@ -111,11 +111,11 @@
 }
 
 .tab-nav {
-  @apply flex border-b border-border bg-light dark:border-darkmode-border dark:bg-darkmode-light !m-0 !list-none;
+  @apply flex border-b border-border bg-light dark:border-darkmode-border dark:bg-darkmode-light m-0! list-none!;
 }
 
 .tab-nav-item {
-  @apply cursor-pointer border-b-[3px] border-border py-2 text-lg text-text-dark opacity-80 dark:border-darkmode-border !my-0 !px-8;
+  @apply cursor-pointer border-b-[3px] border-border py-2 text-lg text-text-dark opacity-80 dark:border-darkmode-border my-0! px-8!;
 }
 
 .tab-nav-item.active {
@@ -148,7 +148,7 @@
 }
 
 .accordion-icon {
-  @apply h-[.8em] w-[.8em] rotate-[-90deg] transition-transform duration-200;
+  @apply h-[.8em] w-[.8em] -rotate-90 transition-transform duration-200;
 }
 
 .accordion-content {
@@ -189,17 +189,17 @@
   @apply prose-h2:text-h2-sm md:prose-h2:text-h2;
   @apply prose-h3:text-h3-sm md:prose-h3:text-h3;
   @apply prose-p:text-base prose-p:text-text dark:prose-p:text-darkmode-text;
-  @apply prose-a:text-text prose-a:[&.btn]:no-underline  dark:prose-a:text-darkmode-text;
+  @apply prose-a:text-text prose-a:underline prose-a:decoration-accent/60 prose-a:underline-offset-4 hover:prose-a:decoration-accent hover:prose-a:text-accent prose-a:[&.btn]:no-underline dark:prose-a:text-darkmode-text dark:prose-a:decoration-darkmode-accent/60 dark:hover:prose-a:decoration-darkmode-accent dark:hover:prose-a:text-darkmode-accent;
   @apply prose-img:max-w-full prose-img:rounded;
   @apply prose-strong:text-text-dark dark:prose-strong:text-darkmode-text;
   @apply prose-hr:border-border dark:prose-hr:border-darkmode-border;
   @apply prose-pre:rounded-lg prose-pre:bg-light dark:prose-pre:bg-darkmode-light;
   @apply prose-code:text-darkmode-text-dark;
   @apply prose-li:text-text dark:prose-li:text-darkmode-text;
-  @apply prose-blockquote:rounded-lg prose-blockquote:border prose-blockquote:border-l-[10px] prose-blockquote:border-primary prose-blockquote:bg-light prose-blockquote:px-8 prose-blockquote:py-10 prose-blockquote:font-secondary prose-blockquote:text-2xl prose-blockquote:not-italic prose-blockquote:text-text-dark dark:prose-blockquote:border-darkmode-primary dark:prose-blockquote:bg-darkmode-light dark:prose-blockquote:text-darkmode-text-light;
+  @apply prose-blockquote:rounded-lg prose-blockquote:border prose-blockquote:border-l-10 prose-blockquote:border-primary prose-blockquote:bg-light prose-blockquote:px-8 prose-blockquote:py-10 prose-blockquote:font-secondary prose-blockquote:text-2xl prose-blockquote:not-italic prose-blockquote:text-text-dark dark:prose-blockquote:border-darkmode-primary dark:prose-blockquote:bg-darkmode-light dark:prose-blockquote:text-darkmode-text-light;
   @apply prose-table:relative prose-table:overflow-hidden prose-table:rounded-lg prose-table:before:absolute prose-table:before:left-0 prose-table:before:top-0 prose-table:before:h-full prose-table:before:w-full prose-table:before:rounded-[inherit] prose-table:before:border prose-table:before:border-border prose-table:before:content-[""] dark:prose-table:before:border-darkmode-border;
   @apply prose-thead:border-border prose-thead:bg-light dark:prose-thead:border-darkmode-border dark:prose-thead:bg-darkmode-light;
-  @apply prose-th:relative prose-th:z-10 prose-th:px-4 prose-th:py-[18px] prose-th:text-text-dark dark:prose-th:text-darkmode-text;
+  @apply prose-th:relative prose-th:z-10 prose-th:px-4 prose-th:py-4.5 prose-th:text-text-dark dark:prose-th:text-darkmode-text;
   @apply prose-tr:border-border dark:prose-tr:border-darkmode-border;
-  @apply prose-td:relative prose-td:z-10 prose-td:px-3 prose-td:py-[18px] dark:prose-td:text-darkmode-text;
+  @apply prose-td:relative prose-td:z-10 prose-td:px-3 prose-td:py-4.5 dark:prose-td:text-darkmode-text;
 }

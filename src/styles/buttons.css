@@ -11,7 +11,7 @@
 }
 
 .btn-outline-primary {
-  @apply border-dark text-text-dark hover:bg-dark dark:hover:text-text-dark bg-transparent hover:text-white dark:border-darkmode-primary dark:text-white dark:hover:bg-darkmode-primary;
+  @apply border-dark text-text-dark bg-body hover:bg-dark hover:text-white dark:border-darkmode-primary dark:text-darkmode-text-dark dark:bg-darkmode-body dark:hover:bg-darkmode-primary dark:hover:text-text-dark;
 }
 
 .btn-invert {

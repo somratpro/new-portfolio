@@ -7,12 +7,12 @@
         "border": "#e7e4dd",
         "light": "#f1efe9",
         "dark": "#1a1815",
-        "accent": "#b45309"
+        "accent": "#a84b06"
       },
       "text_color": {
         "text": "#57534e",
         "text_dark": "#1a1815",
-        "text_light": "#8e8a81"
+        "text_light": "#706a63"
       }
     },
     "darkmode": {
@@ -27,7 +27,7 @@
       "text_color": {
         "text": "#a8a29e",
         "text_dark": "#f3f1ec",
-        "text_light": "#78716c"
+        "text_light": "#9c968e"
       }
     }
   },
