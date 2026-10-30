@@ -43,19 +43,21 @@ const { title, meta_title, description, image, noindex, canonical } =
       )
     }
     <!-- favicon -->
+    <link rel="icon" type="image/png" href={config.site.favicon} />
     <link rel="shortcut icon" href={config.site.favicon} />
+    <link rel="apple-touch-icon" href={config.site.favicon} />
     <!-- theme meta -->
     <meta name="theme-name" content="somrat-portfolio" />
-    <meta name="msapplication-TileColor" content="#1a1815" />
+    <meta name="msapplication-TileColor" content="#09090b" />
     <meta
       name="theme-color"
       media="(prefers-color-scheme: light)"
-      content="#faf9f7"
+      content="#ffffff"
     />
     <meta
       name="theme-color"
       media="(prefers-color-scheme: dark)"
-      content="#0f0e0c"
+      content="#09090b"
     />
     <script is:inline>
       document.documentElement.classList.add("js");
