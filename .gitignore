@@ -25,6 +25,3 @@ pnpm-debug.log*
 
 # ide
 .idea/
-
-# skills
-.agents/skills/skill-creator
