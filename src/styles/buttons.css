@@ -1,19 +1,19 @@
 .btn {
-  @apply inline-block rounded-full border border-transparent px-7 py-2.5 font-semibold transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-dark/10 dark:hover:shadow-black/30;
+  @apply inline-flex min-h-11 items-center justify-center rounded-full border border-transparent px-6 py-2.5 text-sm font-semibold tracking-wide transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xs active:translate-y-0 active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:focus-visible:outline-darkmode-accent cursor-pointer;
 }
 
 .btn-sm {
-  @apply rounded-full px-4 py-1.5 text-sm;
+  @apply min-h-9 rounded-full px-4 py-1.5 text-xs;
 }
 
 .btn-primary {
-  @apply border-primary bg-primary dark:border-darkmode-primary dark:text-text-dark text-white dark:bg-darkmode-primary;
+  @apply border-primary bg-primary text-white shadow-xs hover:bg-primary/90 hover:shadow-md dark:border-white dark:bg-white dark:text-slate-950 dark:font-bold dark:hover:bg-slate-100 dark:hover:shadow-[0_0_20px_rgba(255,255,255,0.15)];
 }
 
 .btn-outline-primary {
-  @apply border-dark text-text-dark bg-body hover:bg-dark hover:text-white dark:border-darkmode-primary dark:text-darkmode-text-dark dark:bg-darkmode-body dark:hover:bg-darkmode-primary dark:hover:text-text-dark;
+  @apply border-border/90 bg-body/60 text-text-dark backdrop-blur-xs hover:border-accent hover:text-accent hover:bg-accent/5 dark:border-darkmode-border/90 dark:bg-darkmode-body/60 dark:text-darkmode-text-dark dark:hover:border-darkmode-accent dark:hover:text-darkmode-accent dark:hover:bg-darkmode-accent/5;
 }
 
 .btn-invert {
-  @apply border-transparent bg-body text-text-dark dark:bg-darkmode-primary dark:text-text-dark;
+  @apply border-border bg-body text-text-dark hover:border-accent hover:text-accent dark:border-darkmode-border dark:bg-darkmode-light dark:text-darkmode-text dark:hover:border-darkmode-accent dark:hover:text-darkmode-accent;
 }

@@ -24,7 +24,7 @@
   }
 
   /* the entrance uses the translate-y-[...] utility, which Tailwind v4
-     compiles to the standalone `translate` property — animate that same
+     compiles to the standalone `translate` property: animate that same
      property here, not `transform`, or the two never interact */
   @keyframes word-rise {
     to {

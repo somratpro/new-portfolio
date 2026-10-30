@@ -1,14 +1,14 @@
 ---
-import SectionLabel from "@/components/SectionLabel.astro";
 import { markdownify } from "@/lib/utils/textConverter";
 import {
   FaArrowRight,
-  FaBoxArchive,
-  FaBuilding,
+  FaArrowUpRightFromSquare,
+  FaGithub,
   FaStar,
 } from "react-icons/fa6";
 
 const { companyprojects } = Astro.props;
+const { flagship } = companyprojects;
 
 interface CompanyProject {
   name: string;
@@ -29,90 +29,173 @@ const languageColors: Record<string, string> = {
   Go: "#00add8",
   Astro: "#ff5a03",
 };
+
+const formatStars = (num: number) => {
+  return num >= 1000 ? `${(num / 1000).toFixed(1)}k` : String(num);
+};
 ---
 
-<section id="company-work" class="section scroll-mt-24 pt-0">
+<section id="company-work" class="section scroll-mt-24 pt-4">
   <div class="container">
-    <SectionLabel index="05" text={companyprojects.subtitle} className="mb-4" />
     <h2
-      class="reveal mb-5 text-h3 md:text-h2 [&_em]:text-accent dark:[&_em]:text-darkmode-accent"
+      class="reveal mb-4 font-secondary text-3xl font-bold tracking-tight text-text-dark md:text-4xl lg:text-5xl [&_em]:text-accent [&_em]:not-italic dark:text-darkmode-text-dark dark:[&_em]:text-darkmode-accent"
       set:html={markdownify(companyprojects.title)}
       data-reveal
-      style="--reveal-delay:.08s"
+      style="--reveal-delay:.06s"
     />
     <p
-      class="reveal mb-14 max-w-2xl [&_a]:underline [&_a]:decoration-accent/60 [&_a]:underline-offset-4 [&_a]:text-text-dark [&_a]:transition-colors [&_a:hover]:decoration-accent [&_a:hover]:text-accent dark:[&_a]:decoration-darkmode-accent/60 dark:[&_a]:text-darkmode-text-dark dark:[&_a:hover]:decoration-darkmode-accent dark:[&_a:hover]:text-darkmode-accent"
+      class="reveal mb-10 max-w-2xl text-base text-text leading-relaxed md:text-lg [&_a]:underline [&_a]:decoration-accent/60 [&_a]:underline-offset-4 [&_a]:text-text-dark [&_a]:transition-colors [&_a:hover]:decoration-accent [&_a:hover]:text-accent dark:[&_a]:decoration-darkmode-accent/60 dark:[&_a]:text-darkmode-text-dark dark:[&_a:hover]:decoration-darkmode-accent dark:[&_a:hover]:text-darkmode-accent dark:text-darkmode-text"
       set:html={markdownify(companyprojects.content)}
       data-reveal
-      style="--reveal-delay:.16s"
+      style="--reveal-delay:.12s"
     />
 
-    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-      {
-        companyprojects.items.map((project: CompanyProject, index: number) => (
-          <div
-            class="reveal"
-            data-reveal
-            style={`--reveal-delay:${(index % 3) * 0.08}s`}
-          >
-            <a
-              class="group block h-full rounded-2xl border border-border bg-light/40 p-7 transition duration-300 hover:-translate-y-1.5 hover:border-accent/55 hover:shadow-xl hover:shadow-dark/10 dark:border-darkmode-border dark:bg-darkmode-light/55 dark:hover:border-darkmode-accent/55"
-              href={project.url}
-              target="_blank"
-              rel="noopener"
-            >
-              <div class="mb-5 flex items-center justify-between">
-                <span class="inline-flex items-center gap-1.5 rounded-full border border-border px-2.5 py-0.5 text-[0.62rem] tracking-widest text-text-light uppercase dark:border-darkmode-border dark:text-darkmode-text-light">
-                  <FaBuilding className="h-3 w-3" />
-                  {project.company}
-                </span>
-                <span class="flex items-center gap-2">
-                  {project.archived && (
-                    <span class="inline-flex items-center gap-1.5 rounded-full border border-border px-2.5 py-0.5 text-[0.62rem] tracking-widest text-text-light uppercase dark:border-darkmode-border dark:text-darkmode-text-light">
-                      <FaBoxArchive className="h-3 w-3" />
-                      Archived
-                    </span>
-                  )}
-                  <span class="inline-flex items-center gap-2 text-sm font-medium text-text-dark dark:text-darkmode-text-dark">
-                    <FaStar className="h-3.5 w-3.5 text-accent dark:text-darkmode-accent" />
-                    {project.stars}
+    {/* Simplified Flagship Spotlight: Sitepins */}
+    {flagship && (
+      <div class="reveal mb-8" data-reveal style="--reveal-delay:.16s">
+        <div
+          class="group relative overflow-hidden rounded-2xl border-2 border-accent/40 bg-linear-to-br from-accent/5 via-light/50 to-light/20 p-6 transition-all duration-300 hover:border-accent hover:shadow-md md:p-8 dark:border-darkmode-accent/40 dark:from-darkmode-accent/10 dark:via-darkmode-light/40 dark:to-darkmode-body dark:hover:border-darkmode-accent"
+          data-spotlight
+        >
+          <div class="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+            {/* Left Column: Info & Description */}
+            <div class="max-w-2xl">
+              <div class="mb-3 flex flex-wrap items-center gap-3">
+                <span class="inline-flex items-center gap-1.5 rounded-full border border-accent/40 bg-accent/10 px-3 py-0.5 text-xs font-semibold text-accent dark:border-darkmode-accent/40 dark:bg-darkmode-accent/10 dark:text-darkmode-accent">
+                  <span class="relative flex h-2 w-2" aria-hidden="true">
+                    <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75 dark:bg-darkmode-accent" />
+                    <span class="relative inline-flex h-2 w-2 rounded-full bg-accent dark:bg-darkmode-accent" />
                   </span>
+                  {flagship.badge}
+                </span>
+                <span class="text-xs font-medium text-text-light dark:text-darkmode-text-light">
+                  {flagship.tagline}
                 </span>
               </div>
-              <h3 class="h5 mb-2 font-primary! font-semibold! transition-colors group-hover:text-accent dark:group-hover:text-darkmode-accent">
-                {project.name}
+
+              <h3 class="font-secondary text-2xl font-bold tracking-tight text-text-dark sm:text-3xl dark:text-darkmode-text-dark">
+                {flagship.name}
               </h3>
-              <p class="mb-6 text-sm leading-relaxed text-text dark:text-darkmode-text">
-                {project.description}
+
+              <p class="mt-2 text-sm leading-relaxed text-text sm:text-base dark:text-darkmode-text">
+                {flagship.description}
               </p>
-              <div class="flex items-center gap-2 font-mono text-xs tracking-[0.08em] text-text-light dark:text-darkmode-text-light">
+
+              {/* Tech Tags */}
+              <div class="mt-4 flex flex-wrap items-center gap-1.5">
+                {flagship.techStack.map((tech: string) => (
+                  <span class="rounded-md border border-border/80 bg-body/80 px-2 py-0.5 font-mono text-xs font-medium text-text-dark dark:border-darkmode-border/80 dark:bg-darkmode-body/80 dark:text-darkmode-text">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Right Column: Clean Action Links */}
+            <div class="flex shrink-0 items-center gap-2.5">
+              <a
+                href={flagship.repoUrl}
+                target="_blank"
+                rel="noopener"
+                class="btn btn-sm btn-outline-primary gap-1.5"
+                title="View Sitepins repository on GitHub"
+              >
+                <FaGithub className="h-3.5 w-3.5" />
+                <FaStar className="h-3 w-3 text-amber-500" />
+                <span>{formatStars(flagship.stars)}</span>
+              </a>
+
+              <a
+                href={flagship.url}
+                target="_blank"
+                rel="noopener"
+                class="btn btn-sm btn-primary gap-1.5"
+              >
+                <span>sitepins.com</span>
+                <FaArrowUpRightFromSquare className="h-3 w-3 opacity-80" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    )}
+
+    {/* Starter Kits & Templates Divider */}
+    <div class="reveal mb-6 flex items-center gap-4" data-reveal>
+      <span class="font-mono text-xs font-semibold tracking-wider text-text-light uppercase dark:text-darkmode-text-light">
+        Starter Kits & Boilerplates Ecosystem
+      </span>
+      <div class="h-px flex-1 bg-border/70 dark:bg-darkmode-border/70"></div>
+    </div>
+
+    {/* Engineering Registry List */}
+    <div class="space-y-3">
+      {companyprojects.items.map((project: CompanyProject, index: number) => (
+        <div
+          class="reveal"
+          data-reveal
+          style={`--reveal-delay:${(index % 5) * 0.05}s`}
+        >
+          <a
+            class="group flex flex-col justify-between gap-4 rounded-xl border border-border/80 bg-light/30 p-5 transition-all duration-300 hover:border-accent/40 hover:bg-light/80 hover:shadow-xs sm:flex-row sm:items-center dark:border-darkmode-border/80 dark:bg-darkmode-light/30 dark:hover:border-darkmode-accent/40 dark:hover:bg-darkmode-light/70"
+            href={project.url}
+            target="_blank"
+            rel="noopener"
+            data-spotlight
+          >
+            <div class="flex items-center gap-4">
+              <span class="inline-flex h-8.5 w-17 shrink-0 items-center justify-center gap-1.5 rounded-lg border border-border/70 bg-body font-mono text-xs font-semibold text-text-dark shadow-2xs dark:border-darkmode-border/70 dark:bg-darkmode-body dark:text-darkmode-text">
+                <FaStar className="h-3 w-3 shrink-0 text-amber-500" />
+                <span>{formatStars(project.stars)}</span>
+              </span>
+              <div>
+                <div class="flex flex-wrap items-center gap-2">
+                  <h3 class="text-base font-bold text-text-dark transition-colors group-hover:text-accent sm:text-lg dark:text-darkmode-text-dark dark:group-hover:text-darkmode-accent">
+                    {project.name}
+                  </h3>
+                  <span class="rounded-full bg-light px-2 py-0.5 font-mono text-[0.65rem] font-medium tracking-wide text-text-light uppercase dark:bg-darkmode-light dark:text-darkmode-text-light">
+                    {project.company}
+                  </span>
+                </div>
+                <p class="mt-1 text-xs text-text sm:text-sm dark:text-darkmode-text">
+                  {project.description}
+                </p>
+              </div>
+            </div>
+
+            <div class="flex shrink-0 items-center gap-4">
+              <span class="flex items-center gap-1.5 font-mono text-xs text-text-light dark:text-darkmode-text-light">
                 <span
-                  class="inline-block h-2.5 w-2.5 rounded-full"
+                  class="h-2 w-2 rounded-full"
                   style={`background-color:${languageColors[project.language] ?? "#8e8a81"}`}
                   aria-hidden="true"
                 />
                 {project.language}
-              </div>
-            </a>
-          </div>
-        ))
-      }
+              </span>
+              <span class="flex h-8 w-8 items-center justify-center rounded-full border border-border/60 text-text-light transition-colors group-hover:border-accent group-hover:text-accent dark:border-darkmode-border/60 dark:text-darkmode-text-light dark:group-hover:border-darkmode-accent dark:group-hover:text-darkmode-accent">
+                <FaArrowUpRightFromSquare className="h-3 w-3" />
+              </span>
+            </div>
+          </a>
+        </div>
+      ))}
     </div>
 
-    <div class="reveal mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-center" data-reveal>
-      {
-        companyprojects.links.map((link: { label: string; url: string }) => (
-          <a
-            class="group inline-flex items-center gap-2 font-mono text-[0.78rem] tracking-[0.18em] text-text-dark uppercase transition-colors hover:text-accent dark:text-darkmode-text-dark dark:hover:text-darkmode-accent"
-            href={link.url}
-            target="_blank"
-            rel="noopener"
-          >
-            {link.label}
-            <FaArrowRight className="inline-block h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-          </a>
-        ))
-      }
+    <div
+      class="reveal mt-10 flex flex-wrap items-center justify-center gap-4"
+      data-reveal
+    >
+      {companyprojects.links.map((link: { label: string; url: string }) => (
+        <a
+          class="group inline-flex items-center gap-2 rounded-full border border-border bg-light/60 px-5 py-2.5 font-mono text-xs font-semibold tracking-wider text-text-dark uppercase transition-all hover:border-accent/40 hover:bg-light hover:text-accent dark:border-darkmode-border dark:bg-darkmode-light/60 dark:text-darkmode-text-dark dark:hover:border-darkmode-accent/40 dark:hover:text-darkmode-accent"
+          href={link.url}
+          target="_blank"
+          rel="noopener"
+        >
+          {link.label}
+          <FaArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
+        </a>
+      ))}
     </div>
   </div>
 </section>

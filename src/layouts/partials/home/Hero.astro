@@ -2,160 +2,169 @@
 import Social from "@/components/Social.astro";
 import social from "@/config/social.json";
 import { markdownify } from "@/lib/utils/textConverter";
+import { FaAws, FaCloud, FaGitAlt } from "react-icons/fa6";
+import {
+  SiAstro,
+  SiBootstrap,
+  SiHugo,
+  SiJavascript,
+  SiJekyll,
+  SiMongodb,
+  SiNextdotjs,
+  SiNodedotjs,
+  SiPostgresql,
+  SiReact,
+  SiSass,
+  SiSupabase,
+  SiTailwindcss,
+  SiTypescript,
+} from "react-icons/si";
 
 const { hero } = Astro.props;
-const [titleBefore, titleAfter] = hero.title.split("{rotating}");
-const beforeWords = titleBefore.trim().split(/\s+/);
-const afterWords = titleAfter.trim().split(/\s+/);
+const match = hero.title.match(/\*([^*]+)\*/);
+const highlightWord = match ? match[1] : "";
+const [titleBefore, titleAfter] = highlightWord
+  ? hero.title.split(`*${highlightWord}*`)
+  : [hero.title, ""];
+const scrambleWords =
+  hero.words && hero.words.length ? hero.words : [highlightWord];
 
-// staggered delay shared across every word in the headline, mask words and
-// the cycling word alike, so the whole line rises in as one left-to-right beat
-let wordIndex = 0;
-const nextDelay = () => (0.2 + wordIndex++ * 0.06).toFixed(2);
-const maskDelay = () => `--w-delay:${nextDelay()}s`;
+const techIcons: Record<string, { icon: any; color: string }> = {
+  Sitepins: { icon: FaGitAlt, color: "text-[#38bdf8]" },
+  Astro: { icon: SiAstro, color: "text-[#ff5d01]" },
+  Hugo: { icon: SiHugo, color: "text-[#ff4088]" },
+  React: { icon: SiReact, color: "text-[#61dafb]" },
+  "Next.js": {
+    icon: SiNextdotjs,
+    color: "text-text-dark dark:text-darkmode-text-dark",
+  },
+  "Node.js": { icon: SiNodedotjs, color: "text-[#5fa04e]" },
+  TailwindCSS: { icon: SiTailwindcss, color: "text-[#38bdf8]" },
+  TypeScript: { icon: SiTypescript, color: "text-[#3178c6]" },
+  JavaScript: { icon: SiJavascript, color: "text-[#f7df1e]" },
+  SCSS: { icon: SiSass, color: "text-[#cf649a]" },
+  Bootstrap: { icon: SiBootstrap, color: "text-[#7952b3]" },
+  Jekyll: { icon: SiJekyll, color: "text-[#cc0000]" },
+  MongoDB: { icon: SiMongodb, color: "text-[#47a248]" },
+  PostgreSQL: { icon: SiPostgresql, color: "text-[#4169e1]" },
+  Supabase: { icon: SiSupabase, color: "text-[#3ecf8e]" },
+  AWS: { icon: FaAws, color: "text-[#ff9900]" },
+  S3: { icon: FaCloud, color: "text-[#569a31]" },
+};
 
-const maskWord =
-  "-mb-[0.09em] mr-[0.24em] inline-block overflow-hidden pb-[0.09em] align-bottom last:mr-0";
-const maskWordInner =
-  "inline-block motion-safe:translate-y-[120%] motion-safe:animate-word-rise [animation-delay:var(--w-delay,0s)]";
 const ghostSocials =
   "social-icons [&_li_a]:rounded-full [&_li_a]:border [&_li_a]:border-border [&_li_a]:bg-transparent [&_li_a]:text-text-dark [&_li_a]:transition [&_li_a:hover]:-translate-y-0.5 [&_li_a:hover]:border-accent [&_li_a:hover]:text-accent dark:[&_li_a]:border-darkmode-border dark:[&_li_a]:text-darkmode-text-dark dark:[&_li_a:hover]:border-darkmode-accent dark:[&_li_a:hover]:text-darkmode-accent";
 ---
 
 <section class="hero relative overflow-hidden">
+  <!-- Aceternity Developer Grid Background with Radial Vignette & Cursor Spotlight -->
   <div
-    class="hero-orb pointer-events-none absolute top-[-22%] right-[-12%] h-184 w-184 rounded-full bg-radial from-accent/85 from-0% via-accent/35 via-40% to-transparent to-75% opacity-[0.12] motion-safe:animate-orb-float dark:from-darkmode-accent/85 dark:via-darkmode-accent/35 dark:opacity-[0.14] [&.is-tracked]:animate-none"
+    class="hero-dot-grid pointer-events-none absolute inset-0 -z-10"
+    data-hero-grid
     aria-hidden="true"
-  >
-  </div>
+  ></div>
+
+  <!-- Ambient Orb Glow -->
   <div
-    class="hero-inner container relative pt-16 pb-20 will-change-transform md:pt-24 md:pb-24"
-  >
-    <div
-      class="mb-10 flex flex-wrap items-center justify-between gap-4"
-    >
+    class="hero-orb pointer-events-none absolute -top-24 -right-16 h-140 w-140 rounded-full bg-radial from-accent/30 via-accent/5 to-transparent opacity-25 blur-3xl motion-safe:animate-orb-float dark:from-darkmode-accent/25 dark:via-darkmode-accent/5 dark:opacity-35 [&.is-tracked]:animate-none"
+    aria-hidden="true"
+  ></div>
+
+  <div class="hero-inner container relative pt-12 pb-16 md:pt-20 md:pb-20">
+    <div class="mb-8 flex flex-wrap items-center justify-between gap-4">
+      <!-- Status Badge -->
+      <div class="inline-flex items-center gap-2.5 rounded-full border border-emerald-500/25 bg-emerald-500/5 px-4 py-1.5 text-xs font-semibold text-text-dark shadow-2xs transition-colors hover:border-emerald-500/40 hover:bg-emerald-500/10 dark:border-emerald-400/30 dark:bg-emerald-400/10 dark:text-darkmode-text">
+        <span class="relative flex h-2 w-2" aria-hidden="true">
+          <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75"></span>
+          <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
+        </span>
+        <span>{hero.availability}</span>
+      </div>
       <span
-        class="inline-flex items-center gap-2.5 rounded-full border border-border bg-light px-4 py-1.5 text-sm text-text dark:border-darkmode-border dark:bg-darkmode-light dark:text-darkmode-text"
-      >
-        <span
-          class="h-2 w-2 rounded-full bg-green-500 motion-safe:animate-pulse-dot"
-          aria-hidden="true"></span>
-        {hero.availability}
-      </span>
-      <span
-        class="hidden font-mono text-[0.72rem] tracking-[0.22em] text-text-light uppercase sm:inline-flex dark:text-darkmode-text-light"
+        class="hidden font-mono text-[0.72rem] tracking-[0.2em] text-text-light uppercase sm:inline-flex dark:text-darkmode-text-light"
         set:html={markdownify(hero.location)}
       />
     </div>
 
-    <p
-      class="mb-4 text-lg font-medium text-text-dark md:text-xl dark:text-darkmode-text-dark"
-    >
+    <p class="mb-3 text-base font-semibold tracking-wide text-accent md:text-lg dark:text-darkmode-accent">
       {hero.greeting}
     </p>
 
-    <h1
-      class="font-secondary mb-8 max-w-5xl text-[clamp(2.9rem,7.5vw,5.6rem)] leading-[1.04] font-normal tracking-[-0.02em] text-text-dark dark:text-darkmode-text-dark"
-    >
-      {
-        beforeWords.map((word: string) => (
-          <span class={maskWord} style={maskDelay()}>
-            <span class={maskWordInner}>{word}</span>
-          </span>
-        ))
-      }
-      <span
-        class="mr-[0.24em] inline-block align-bottom"
-      >
+    <!-- Hero Headline with Interactive Decryption Word -->
+    <h1 class="font-secondary mb-6 max-w-5xl text-[clamp(2.5rem,6.8vw,5.2rem)] leading-[1.08] font-bold tracking-tight text-text-dark dark:text-darkmode-text-dark">
+      <span>{titleBefore.trim()}</span>{" "}
+      {highlightWord && (
         <span
-          class="relative inline-block align-bottom transition-[width] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
-          data-word-cycle
-          data-words={JSON.stringify(hero.rotating_words)}
+          class="group/scramble relative inline-block cursor-pointer align-baseline select-none"
+          data-scramble-word={highlightWord}
+          data-words={JSON.stringify(scrambleWords)}
+          title="Hover or tap to reveal next word"
         >
           <span
-            class="pointer-events-none absolute inset-x-0 bottom-[0.06em] -z-10 h-[0.3em] origin-left scale-x-100 bg-accent/20 transition-transform duration-500 ease-[cubic-bezier(0.65,0,0.35,1)] dark:bg-darkmode-accent/25"
-            data-word-highlight
-            aria-hidden="true"
+            class="relative z-10 bg-linear-to-r from-accent via-sky-400 to-accent bg-size-[200%_auto] bg-clip-text font-bold text-transparent animate-shimmer dark:from-darkmode-accent dark:via-sky-200 dark:to-darkmode-accent"
+            data-scramble-text
           >
+            {highlightWord}
           </span>
           <span
-            class="inline-block text-accent italic opacity-100 blur-none transition-[opacity,filter] duration-300 ease-out whitespace-nowrap dark:text-darkmode-accent"
-            data-word-text
-          >
-            {hero.rotating_words[0]}
-          </span>
+            class="absolute -bottom-1 left-0 right-0 h-0.75 rounded-full bg-linear-to-r from-transparent via-accent to-transparent opacity-60 transition-all duration-300 group-hover/scramble:h-1 group-hover/scramble:opacity-100 dark:via-darkmode-accent"
+            aria-hidden="true"
+          />
         </span>
-      </span>
-      {
-        afterWords.map((word: string) => (
-          <span class={maskWord} style={maskDelay()}>
-            <span class={maskWordInner}>{word}</span>
-          </span>
-        ))
-      }
+      )}{" "}
+      <span>{titleAfter.trim()}</span>
     </h1>
 
     <p
-      class="mb-10 max-w-xl text-lg text-text dark:text-darkmode-text [&_a]:underline [&_a]:decoration-accent/60 [&_a]:underline-offset-4 [&_a]:text-text-dark [&_a]:transition-colors [&_a:hover]:decoration-accent [&_a:hover]:text-accent dark:[&_a]:decoration-darkmode-accent/60 dark:[&_a]:text-darkmode-text-dark dark:[&_a:hover]:decoration-darkmode-accent dark:[&_a:hover]:text-darkmode-accent"
+      class="mb-8 max-w-2xl text-base leading-relaxed text-text md:text-lg dark:text-darkmode-text [&_a]:underline [&_a]:decoration-accent/60 [&_a]:underline-offset-4 [&_a]:text-text-dark [&_a]:transition-colors [&_a:hover]:decoration-accent [&_a:hover]:text-accent dark:[&_a]:decoration-darkmode-accent/60 dark:[&_a]:text-darkmode-text-dark dark:[&_a:hover]:decoration-darkmode-accent dark:[&_a:hover]:text-darkmode-accent"
       set:html={markdownify(hero.content)}
     />
 
-    <div
-      class="hero-cta flex flex-wrap items-center gap-5"
-    >
-      {
-        hero.buttons.map(
-          (
-            button: { enable: boolean; label: string; link: string },
-            i: number,
-          ) =>
-            button.enable && (
-              <a
-                class={`btn ${i === 0 ? "btn-primary" : "btn-outline-primary"}`}
-                href={button.link}
-                target={button.link.startsWith("http") ? "_blank" : "_self"}
-                rel="noopener"
-              >
-                {button.label}
-              </a>
-            ),
-        )
-      }
+    <div class="hero-cta flex flex-wrap items-center gap-4">
+      {hero.buttons.map(
+        (button: { enable: boolean; label: string; link: string }, i: number) =>
+          button.enable && (
+            <a
+              class={`btn ${i === 0 ? "btn-primary" : "btn-outline-primary"}`}
+              href={button.link}
+              target={button.link.startsWith("http") ? "_blank" : "_self"}
+              rel="noopener"
+            >
+              {button.label}
+            </a>
+          ),
+      )}
       <Social source={social.main} className={ghostSocials} />
     </div>
   </div>
 
-  <div
-    class="reveal group overflow-hidden border-y border-border py-5 dark:border-darkmode-border"
-    data-reveal
-    style="--reveal-delay:.72s"
-  >
-    <div
-      class="flex w-max animate-marquee group-hover:[animation-play-state:paused] motion-reduce:w-auto motion-reduce:flex-wrap motion-reduce:animate-none"
-    >
-      {
-        [0, 1].map((copy) => (
-          <div
-            class:list={[
-              "flex items-center",
-              copy === 1 && "motion-reduce:hidden",
-            ]}
-            aria-hidden={copy === 1}
-          >
-            {hero.marquee.map((item: string) => (
-              <span class="font-secondary inline-flex items-center text-2xl text-text-light dark:text-darkmode-text-light">
-                {item}
-                <span
-                  class="mx-[1.9rem] text-[0.7rem] text-accent dark:text-darkmode-accent"
-                  aria-hidden="true"
-                >
-                  ✦
-                </span>
-              </span>
-            ))}
-          </div>
-        ))
-      }
+  <!-- Tech Marquee Banner (Upgraded Chip Stream) -->
+  <div class="group relative overflow-hidden border-y border-border/70 bg-light/40 py-4 mask-[linear-gradient(to_right,transparent,black_6%,black_94%,transparent)] [-webkit-mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)] dark:border-darkmode-border/70 dark:bg-darkmode-light/30">
+    <div class="flex w-max animate-marquee items-center gap-3 group-hover:[animation-play-state:paused] motion-reduce:w-auto motion-reduce:flex-wrap motion-reduce:animate-none">
+      {[0, 1, 2, 3].map((copy) => (
+        <div
+          class:list={[
+            "flex items-center gap-3 shrink-0 pr-3",
+            copy > 1 && "motion-reduce:hidden",
+          ]}
+          aria-hidden={copy > 0}
+        >
+          {hero.marquee.map((item: string) => {
+            const tech = techIcons[item];
+            const Icon = tech?.icon;
+            return (
+              <div class="group/chip inline-flex items-center gap-2 rounded-full border border-border/80 bg-body/90 px-3.5 py-1.5 text-xs font-semibold tracking-wide text-text-dark shadow-2xs backdrop-blur-xs transition-all duration-300 hover:-translate-y-0.5 hover:border-accent hover:shadow-xs dark:border-darkmode-border/80 dark:bg-darkmode-body/90 dark:text-darkmode-text-dark dark:hover:border-darkmode-accent">
+                {Icon && (
+                  <Icon
+                    className={`h-3.5 w-3.5 shrink-0 transition-transform duration-300 group-hover/chip:scale-115 ${tech?.color}`}
+                  />
+                )}
+                <span>{item}</span>
+              </div>
+            );
+          })}
+        </div>
+      ))}
     </div>
   </div>
 </section>

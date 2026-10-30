@@ -6,30 +6,30 @@
 
 @theme {
   /* === Colors === */
-  --color-primary: #1a1815;
-  --color-body: #faf9f7;
-  --color-border: #e7e4dd;
-  --color-light: #f1efe9;
-  --color-dark: #1a1815;
-  --color-accent: #984103;
-  --color-text: #57534e;
-  --color-text-dark: #1a1815;
-  --color-text-light: #615b54;
+  --color-primary: #0f172a;
+  --color-body: #ffffff;
+  --color-border: #e2e8f0;
+  --color-light: #f8fafc;
+  --color-dark: #0f172a;
+  --color-accent: #2563eb;
+  --color-text: #475569;
+  --color-text-dark: #0f172a;
+  --color-text-light: #64748b;
 
   /* === Darkmode Colors === */
-  --color-darkmode-primary: #f3f1ec;
-  --color-darkmode-body: #0f0e0c;
-  --color-darkmode-border: #28251f;
-  --color-darkmode-light: #17150f;
-  --color-darkmode-dark: #f3f1ec;
-  --color-darkmode-accent: #d9a552;
-  --color-darkmode-text: #a8a29e;
-  --color-darkmode-text-dark: #f3f1ec;
-  --color-darkmode-text-light: #9c968e;
+  --color-darkmode-primary: #f8fafc;
+  --color-darkmode-body: #09090b;
+  --color-darkmode-border: #27272a;
+  --color-darkmode-light: #18181b;
+  --color-darkmode-dark: #f8fafc;
+  --color-darkmode-accent: #38bdf8;
+  --color-darkmode-text: #a1a1aa;
+  --color-darkmode-text-dark: #f8fafc;
+  --color-darkmode-text-light: #71717a;
 
   /* === Font Families === */
-  --font-primary: Inter, sans-serif;
-  --font-secondary: Instrument Serif, serif;
+  --font-primary: Plus Jakarta Sans, sans-serif;
+  --font-secondary: Outfit, sans-serif;
 
   /* === Font Sizes === */
   --text-base: 16px;

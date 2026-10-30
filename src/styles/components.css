@@ -5,11 +5,10 @@
 
 /* scroll-reveal states (class toggled by src/scripts/portfolio.js).
    translate-y-* compiles to the standalone `translate` property in
-   Tailwind v4, so that's what has to be listed here — not `transform`,
-   which nothing in this rule ever sets. */
+   Tailwind v4, so that's what has to be listed here, not `transform`. */
 @media (prefers-reduced-motion: no-preference) {
   html.js .reveal {
-    @apply translate-y-6.5 opacity-0 transition-[opacity,translate] duration-900 ease-[cubic-bezier(0.16,1,0.3,1)] delay-(--reveal-delay,0s);
+    @apply translate-y-3 opacity-0 transition-[opacity,translate] duration-600 ease-[cubic-bezier(0.16,1,0.3,1)] delay-(--reveal-delay,0s);
   }
 
   html.js .reveal.is-revealed {
@@ -17,7 +16,99 @@
   }
 }
 
-/* theme-switch circular wipe (View Transitions API — pseudo-elements
+/* Card Spotlight cursor interaction */
+[data-spotlight] {
+  position: relative;
+}
+
+[data-spotlight]::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: radial-gradient(
+    360px circle at var(--mouse-x, -999px) var(--mouse-y, -999px),
+    rgba(37, 99, 235, 0.15),
+    transparent 70%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  z-index: 10;
+}
+
+.dark [data-spotlight]::after {
+  background: radial-gradient(
+    360px circle at var(--mouse-x, -999px) var(--mouse-y, -999px),
+    rgba(56, 189, 248, 0.2),
+    transparent 70%
+  );
+}
+
+[data-spotlight]:hover::after {
+  opacity: 1;
+}
+
+
+
+/* Aceternity Developer Grid Pattern with Radial Vignette & Interactive Cursor Spotlight */
+.hero-dot-grid {
+  background-image: radial-gradient(rgba(15, 23, 42, 0.12) 1px, transparent 1px);
+  background-size: 24px 24px;
+  mask-image: radial-gradient(
+    520px circle at var(--hero-mouse-x, 50%) var(--hero-mouse-y, 30%),
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.4) 60%,
+    transparent 100%
+  );
+  -webkit-mask-image: radial-gradient(
+    520px circle at var(--hero-mouse-x, 50%) var(--hero-mouse-y, 30%),
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.4) 60%,
+    transparent 100%
+  );
+}
+
+.dark .hero-dot-grid {
+  background-image: radial-gradient(rgba(248, 250, 252, 0.12) 1px, transparent 1px);
+}
+
+
+
+/* Aceternity Interactive Text Scramble & Shimmer */
+[data-scramble-word] {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  user-select: none;
+}
+
+[data-scramble-text] {
+  letter-spacing: -0.02em;
+  transition: opacity 0.2s ease, text-shadow 0.2s ease;
+}
+
+[data-scramble-word]:hover [data-scramble-text] {
+  text-shadow: 0 0 16px rgba(56, 189, 248, 0.4);
+}
+
+@keyframes text-shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-shimmer {
+  animation: text-shimmer 6s ease-in-out infinite;
+}
+
+/* theme-switch circular wipe (View Transitions API, pseudo-elements
    can't be expressed as utilities; scoped so ClientRouter navigation
    transitions keep their defaults) */
 :root.vt-theme::view-transition-old(root),

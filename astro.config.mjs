@@ -37,7 +37,7 @@ const fontsConfig = Object.entries(theme.fonts.font_family)
       cssVariable: `--font-${key}`,
       provider: fontProviders.google(),
       weights,
-      styles: ["normal", "italic"],
+      styles: name.toLowerCase().includes("outfit") ? ["normal"] : ["normal", "italic"],
       display: "swap",
       fallbacks: [fallback],
     };

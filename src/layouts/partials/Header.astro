@@ -28,7 +28,7 @@ const ghostSocials =
 ---
 
 <header
-  class={`header z-30 transition-[padding,background-color,box-shadow] duration-300 [&.is-scrolled]:py-3 [&.is-scrolled]:bg-body/95 [&.is-scrolled]:shadow-[0_1px_0_var(--color-border)] dark:[&.is-scrolled]:bg-darkmode-body/95 dark:[&.is-scrolled]:shadow-[0_1px_0_var(--color-darkmode-border)] ${settings.sticky_header && "sticky top-0"}`}
+  class={`header z-30 transition-[padding,background-color,box-shadow] duration-300 [&.is-scrolled]:py-3 [&.is-scrolled]:bg-body/85 [&.is-scrolled]:backdrop-blur-md [&.is-scrolled]:shadow-[0_1px_0_var(--color-border)] dark:[&.is-scrolled]:bg-darkmode-body/85 dark:[&.is-scrolled]:backdrop-blur-md dark:[&.is-scrolled]:shadow-[0_1px_0_var(--color-darkmode-border)] ${settings.sticky_header && "sticky top-0"}`}
 >
   <nav class="navbar container">
     <!-- logo -->
@@ -55,7 +55,7 @@ const ghostSocials =
     </label>
     <!-- /navbar toggler -->
 
-    <!-- desktop nav (lg and up only — mobile uses the full-screen panel below) -->
+    <!-- desktop nav (lg and up only: mobile uses the full-screen panel below) -->
     <ul
       class="navbar-nav order-3 hidden lg:order-1 lg:flex lg:w-auto lg:items-center lg:space-x-2 xl:space-x-8"
     >

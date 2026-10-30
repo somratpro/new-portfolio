@@ -1,6 +1,6 @@
 import { glob } from "astro/loaders";
-import { defineCollection } from "astro:content";
 import { z } from "astro/zod";
+import { defineCollection } from "astro:content";
 
 const buttonSchema = z.object({
   enable: z.boolean(),
@@ -21,7 +21,7 @@ const homepageCollection = defineCollection({
     hero: z.object({
       greeting: z.string(),
       title: z.string(),
-      rotating_words: z.array(z.string()),
+      words: z.array(z.string()).optional(),
       content: z.string(),
       location: z.string(),
       availability: z.string(),
@@ -80,6 +80,18 @@ const homepageCollection = defineCollection({
       title: z.string(),
       content: z.string(),
       links: z.array(z.object({ label: z.string(), url: z.string() })),
+      flagship: z
+        .object({
+          name: z.string(),
+          badge: z.string(),
+          tagline: z.string(),
+          description: z.string(),
+          url: z.string(),
+          repoUrl: z.string(),
+          stars: z.number(),
+          techStack: z.array(z.string()),
+        })
+        .optional(),
       items: z.array(
         z.object({
           name: z.string(),

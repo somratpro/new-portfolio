@@ -21,7 +21,7 @@ h3,
 .h1,
 .h2,
 .h3 {
-  @apply font-secondary font-normal tracking-tight;
+  @apply font-secondary font-bold tracking-tight;
 }
 
 h4,

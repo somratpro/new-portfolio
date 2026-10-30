@@ -2,13 +2,14 @@
 # Hero
 hero:
   greeting: "Hi, I'm Somrat Sorkar."
-  title: "Building {rotating} things for the modern web."
-  rotating_words:
+  title: "Building *elegant* things for the modern web."
+  words:
     - "elegant"
     - "fast"
-    - "lasting"
+    - "scalable"
     - "delightful"
-  content: "Senior Web Developer & Dev Team Lead at [Themefisher](https://themefisher.com) — eight years of shipping themes, web apps and open-source tools used by thousands of developers."
+    - "resilient"
+  content: "Senior Web Developer, Dev Team Lead, and Core Maintainer of [Sitepins](https://sitepins.com) (open-source Git-based CMS). Shipping modern web apps, Jamstack platforms, and open-source tooling used by thousands of developers."
   location: "Dhaka, Bangladesh"
   availability: "Available for freelance & consulting"
   buttons:
@@ -19,6 +20,7 @@ hero:
       label: "Download CV"
       link: "/somrat-cv.pdf"
   marquee:
+    - "Sitepins"
     - "Astro"
     - "Hugo"
     - "React"
@@ -41,9 +43,9 @@ about:
   subtitle: "About"
   title: "Quality is the *top priority*."
   content: |
-    I'm Abdul Monnaf — everyone calls me **Somrat**. For the last eight years I've been building for the web at Themefisher, where I lead the dev team behind three products: [themefisher.com](https://themefisher.com), [gethugothemes.com](https://gethugothemes.com) and [statichunt.com](https://statichunt.com).
+    I'm Abdul Monnaf (everyone calls me **Somrat**). For the last eight years I've been building for the web at Themefisher, where I lead the dev team behind three products: [themefisher.com](https://themefisher.com), [gethugothemes.com](https://gethugothemes.com) and [statichunt.com](https://statichunt.com).
 
-    I'm interested in emerging technologies, and I always dig into how things really operate. Whatever I ship, I make sure it delivers the finest user experience possible — to me, quality is the top priority.
+    I'm interested in emerging technologies, and I always dig into how things really operate. Whatever I ship, I make sure it delivers the finest user experience possible: to me, quality is the top priority.
   image: "/images/somrat.jpg"
   facts:
     - label: "Location"
@@ -53,7 +55,7 @@ about:
     - label: "Education"
       value: "BSc in Computer Science"
     - label: "Personality"
-      value: "ISTJ — the Logistician"
+      value: "ISTJ · The Logistician"
 
 # Experience
 experience:
@@ -63,8 +65,8 @@ experience:
     - role: "Dev Team Lead & Senior Web Developer"
       company: "Themefisher"
       url: "https://themefisher.com"
-      period: "2018 — Present"
-      description: "Themefisher is a static theme marketplace. I lead the whole dev team — building web applications, crafting UX and shipping production-grade themes used by thousands of developers."
+      period: "2018 - Present"
+      description: "Themefisher is a static theme marketplace. I lead the dev team, building web applications, crafting UX and shipping production-grade themes used by thousands of developers."
       tags:
         - "Leadership"
         - "React"
@@ -72,7 +74,7 @@ experience:
     - role: "Full Stack Web Developer"
       company: "Gethugothemes"
       url: "https://gethugothemes.com"
-      period: "2019 — Present"
+      period: "2019 - Present"
       description: "Building Hugo modules and boilerplates that power one of the largest collections of premium Hugo themes on the web."
       tags:
         - "Hugo"
@@ -81,8 +83,8 @@ experience:
     - role: "Full Stack Web Developer"
       company: "Statichunt"
       url: "https://statichunt.com"
-      period: "2022 — Present"
-      description: "Built and maintain the application — an open-source directory of static site themes, boilerplates and Jamstack resources."
+      period: "2022 - Present"
+      description: "Built and maintain the application, an open-source directory of static site themes, boilerplates and Jamstack resources."
       tags:
         - "Next.js"
         - "Node.js"
@@ -90,8 +92,8 @@ experience:
     - role: "Dev Team Lead"
       company: "Zeon Studio"
       url: "https://zeon.studio"
-      period: "2022 — Present"
-      description: "Zeon Studio is Themefisher's AI-ready web design and marketing automation agency, building on Astro, Next.js and Hugo. I lead the dev team delivering client sites and legacy-platform migrations."
+      period: "2022 - Present"
+      description: "Zeon Studio is Themefisher's web design and marketing automation agency, building on Astro, Next.js and Hugo. I lead the dev team delivering client sites and modern stack migrations."
       tags:
         - "Leadership"
         - "Astro"
@@ -99,12 +101,13 @@ experience:
     - role: "Dev Team Lead & Core Maintainer"
       company: "Sitepins"
       url: "https://sitepins.com"
-      period: "2024 — Present"
-      description: "Sitepins is an open-source, Git-based headless CMS for static sites built with Astro, Next.js and Hugo. I lead development and maintain the core codebase."
+      period: "2024 - Present"
+      description: "Sitepins is an open-source, Git-based headless CMS for static sites built with Astro, Next.js, and Hugo. I lead core architectural development, zero-config schema engines, and Git synchronization workflows."
       tags:
-        - "Leadership"
-        - "Open Source"
-        - "CMS"
+        - "Flagship Product"
+        - "Git-Based CMS"
+        - "Core Maintainer"
+        - "Astro & Next.js"
 
 # Skills
 skills:
@@ -145,34 +148,34 @@ skills:
 projects:
   subtitle: "Selected Work"
   title: "Open-source projects people *actually use*"
-  content: "A snapshot from [github.com/somratpro](https://github.com/somratpro) — self-hosting tools for HuggingFace Spaces, themes and more."
+  content: "A snapshot from [github.com/somratpro](https://github.com/somratpro), featuring self-hosting tools for HuggingFace Spaces, themes, and developer utilities."
   github: "https://github.com/somratpro"
   items:
     - name: "somrat-hugo-theme"
-      description: "A clean Hugo portfolio theme — my old portfolio, open-sourced and used by hundreds of developers."
+      description: "A clean Hugo portfolio theme created from my personal portfolio, open-sourced for developers."
       url: "https://github.com/somratpro/somrat-hugo-theme"
-      stars: 149
+      stars: 148
       language: "CSS"
       archived: true
     - name: "HuggingMes"
-      description: "Run the Harmess agent for free on a HuggingFace Space — always-on, zero cost."
+      description: "Run the Hermes agent for free on a HuggingFace Space with always-on availability."
       url: "https://github.com/somratpro/HuggingMes"
-      stars: 140
+      stars: 153
       language: "JavaScript"
     - name: "HuggingClaw"
-      description: "🦞 Your own always-on AI assistant on HuggingFace Spaces — any LLM, Telegram support, auto-sync, built-in keep-alive."
+      description: "Always-on AI assistant on HuggingFace Spaces with multi-model support, Telegram sync, and auto keep-alive."
       url: "https://github.com/somratpro/HuggingClaw"
-      stars: 65
+      stars: 68
       language: "JavaScript"
     - name: "Hugging8N"
       description: "Self-hosted n8n workflow automation running on a free HuggingFace Space."
       url: "https://github.com/somratpro/Hugging8N"
-      stars: 33
+      stars: 37
       language: "Python"
     - name: "HuggingPost"
       description: "Self-hosted Postiz social media scheduler on a free HuggingFace Space."
       url: "https://github.com/somratpro/HuggingPost"
-      stars: 9
+      stars: 10
       language: "JavaScript"
     - name: "HuggingFlow"
       description: "Run DeerFlow deep-research framework on a HuggingFace Space for free."
@@ -184,51 +187,59 @@ projects:
 companyprojects:
   subtitle: "Team Projects"
   title: "Open-source I *build at work*"
-  content: "Tools I lead development on at [Zeon Studio](https://zeon.studio) and [Sitepins](https://sitepins.com) — team efforts, not solo credit."
+  content: "Open-source platforms and starter ecosystems I lead development on at [Zeon Studio](https://zeon.studio) and [Sitepins](https://sitepins.com)."
   links:
-    - label: "Zeon Studio on GitHub"
-      url: "https://github.com/zeon-studio"
     - label: "Sitepins on GitHub"
       url: "https://github.com/sitepins"
+    - label: "Zeon Studio on GitHub"
+      url: "https://github.com/zeon-studio"
+  flagship:
+    name: "Sitepins"
+    badge: "Open Source"
+    tagline: "Git-based Headless CMS for Static Sites"
+    description: "An open-source, Git-based headless CMS for Astro, Next.js, and Hugo. Connect a repository and edit content with zero schema setup, committing directly back to Git."
+    url: "https://sitepins.com"
+    repoUrl: "https://github.com/sitepins/sitepins"
+    stars: 193
+    techStack:
+      - "TypeScript"
+      - "Astro"
+      - "Next.js"
+      - "Hugo"
+      - "Git API"
   items:
     - name: "hugoplate"
-      description: "Free Hugo + Tailwind CSS v4 starter template — saves hours of setup on new Hugo projects."
+      description: "Free Hugo + Tailwind CSS v4 starter template that eliminates hours of boilerplate setup."
       url: "https://github.com/zeon-studio/hugoplate"
-      stars: 1580
+      stars: 1595
       language: "JavaScript"
       company: "Zeon Studio"
     - name: "astroplate"
       description: "Free Astro + TailwindCSS + TypeScript starter template to jump-start new Astro projects."
       url: "https://github.com/zeon-studio/astroplate"
-      stars: 1185
+      stars: 1218
       language: "Astro"
       company: "Zeon Studio"
     - name: "nextplate"
       description: "Free Next.js + TailwindCSS starter template covering almost everything a new project needs."
       url: "https://github.com/zeon-studio/nextplate"
-      stars: 518
+      stars: 519
       language: "TypeScript"
       company: "Zeon Studio"
-    - name: "sitepins"
-      description: "Open-source, Git-based headless CMS for static sites — connect a repo and start editing, no schema setup."
-      url: "https://github.com/sitepins/sitepins"
-      stars: 137
-      language: "TypeScript"
-      company: "Sitepins"
     - name: "windplate"
       description: "HTML starter template built with Gulp and TailwindCSS."
       url: "https://github.com/zeon-studio/windplate"
-      stars: 46
+      stars: 47
       language: "JavaScript"
       company: "Zeon Studio"
     - name: "open-hr"
-      description: "Open-source HR platform for startups — employees, payroll, assets and tools."
+      description: "Open-source HR platform for startups covering employees, payroll, assets and tools."
       url: "https://github.com/zeon-studio/open-hr"
-      stars: 43
+      stars: 46
       language: "TypeScript"
       company: "Zeon Studio"
     - name: "authplate"
-      description: "Next.js starter with authentication built in — Better-Auth and Prisma/Postgres."
+      description: "Next.js starter with authentication built in using Better-Auth and Prisma on Postgres."
       url: "https://github.com/zeon-studio/authplate"
       stars: 12
       language: "TypeScript"
@@ -238,14 +249,14 @@ companyprojects:
 opensource:
   subtitle: "GitHub"
   title: "Building in the *open*"
-  content: "My HuggingFace Spaces series — HuggingMes, HuggingClaw, Hugging8N and friends — helps developers run always-on agents, automation and tools completely free. Open source is how I learn, teach and give back."
+  content: "My HuggingFace Spaces series (HuggingMes, HuggingClaw, Hugging8N and friends) helps developers run always-on agents, automation and tools completely free. Open source is how I learn, teach and give back."
   stats:
-    - value: 414
+    - value: 422
       suffix: "+"
       label: "GitHub stars earned"
-    - value: 13
+    - value: 17
       label: "Public repositories"
-    - value: 93
+    - value: 99
       label: "GitHub followers"
     - value: 6
       label: "Self-hosting tools"
@@ -260,23 +271,23 @@ services:
   title: "What I can *do for you*"
   items:
     - title: "Web Application Development"
-      description: "Full-stack applications with React, Next.js and Node.js, backed by PostgreSQL, Supabase or AWS — from clean architecture to smooth deployment."
+      description: "Full-stack applications with React, Next.js and Node.js, backed by PostgreSQL, Supabase or AWS, from clean architecture to smooth deployment."
       icon: "FaCode"
     - title: "Theme & Jamstack Development"
       description: "Marketplace-quality themes and static sites with Astro, Hugo and TailwindCSS. Fast by default."
       icon: "FaLayerGroup"
     - title: "Performance & SEO"
-      description: "Core Web Vitals, 95+ PageSpeed scores and technical SEO baked into every build — speed is a feature."
+      description: "Core Web Vitals, 95+ PageSpeed scores and technical SEO baked into every build: speed is a feature."
       icon: "FaGaugeHigh"
     - title: "Technical Leadership"
-      description: "Team leading, code review, architecture and mentoring — I've led Themefisher's dev team since 2018."
+      description: "Architecture, team leadership, code review and mentoring. Leading Themefisher's dev team since 2018."
       icon: "FaUsers"
 
 # Contact
 contact:
   subtitle: "Contact"
   title: "Let's build something *great* together."
-  content: "Have a project in mind, need a senior developer on your team, or just want to talk Jamstack? Drop me a message — I'll get back to you as soon as I can."
+  content: "Have a project in mind, need a senior developer on your team, or just want to talk Jamstack? Drop me a message and I will get back to you promptly."
   location: "Dhaka, Bangladesh · GMT+6"
   buttons:
     - enable: true

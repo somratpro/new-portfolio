@@ -1,5 +1,4 @@
 ---
-import SectionLabel from "@/components/SectionLabel.astro";
 import DynamicIcon from "@/helpers/DynamicIcon";
 import { markdownify } from "@/lib/utils/textConverter";
 
@@ -12,14 +11,13 @@ interface Service {
 }
 ---
 
-<section id="services" class="section scroll-mt-24 pt-0">
+<section id="services" class="section scroll-mt-24 pt-4">
   <div class="container">
-    <SectionLabel index="07" text={services.subtitle} className="mb-4" />
     <h2
-      class="reveal mb-14 text-h3 md:text-h2 [&_em]:text-accent dark:[&_em]:text-darkmode-accent"
+      class="reveal mb-12 font-secondary text-3xl font-bold tracking-tight text-text-dark md:text-4xl lg:text-5xl [&_em]:text-accent [&_em]:not-italic dark:text-darkmode-text-dark dark:[&_em]:text-darkmode-accent"
       set:html={markdownify(services.title)}
       data-reveal
-      style="--reveal-delay:.08s"
+      style="--reveal-delay:.06s"
     />
 
     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -30,18 +28,20 @@ interface Service {
             data-reveal
             style={`--reveal-delay:${(index % 2) * 0.08}s`}
           >
-            <div class="group flex h-full gap-5 rounded-2xl border border-border p-7 transition duration-300 hover:-translate-y-1 hover:border-accent/55 dark:border-darkmode-border dark:hover:border-darkmode-accent/55">
+            <div class="group flex h-full gap-5 rounded-2xl border border-border/80 bg-light/30 p-7 transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:bg-light/70 hover:shadow-xs dark:border-darkmode-border/80 dark:bg-darkmode-light/30 dark:hover:border-darkmode-accent/50 dark:hover:bg-darkmode-light/70">
               <span
-                class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent transition-colors group-hover:bg-accent/20 dark:bg-darkmode-accent/10 dark:text-darkmode-accent dark:group-hover:bg-darkmode-accent/20"
+                class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent transition-colors group-hover:bg-accent group-hover:text-white dark:bg-darkmode-accent/10 dark:text-darkmode-accent dark:group-hover:bg-darkmode-accent dark:group-hover:text-darkmode-body"
                 aria-hidden="true"
               >
-                <DynamicIcon icon={service.icon} className="h-6 w-6" />
+                <DynamicIcon icon={service.icon} className="h-5 w-5" />
               </span>
               <div>
-                <h3 class="h5 mb-2 font-primary! font-semibold!">
+                <h3 class="mb-2 text-lg font-bold text-text-dark transition-colors group-hover:text-accent dark:text-darkmode-text-dark dark:group-hover:text-darkmode-accent">
                   {service.title}
                 </h3>
-                <p>{service.description}</p>
+                <p class="text-sm leading-relaxed text-text dark:text-darkmode-text">
+                  {service.description}
+                </p>
               </div>
             </div>
           </div>

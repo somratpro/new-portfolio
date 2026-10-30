@@ -1,6 +1,6 @@
 {
   "site": {
-    "title": "Somrat Sorkar — Senior Web Developer",
+    "title": "Somrat Sorkar · Senior Web Developer",
     "base_url": "https://somrat.netlify.app",
     "base_path": "/",
     "trailing_slash": false,
@@ -53,7 +53,7 @@
   "metadata": {
     "meta_author": "Somrat Sorkar",
     "meta_image": "/images/og-image.png",
-    "meta_description": "Somrat Sorkar — Senior Web Developer & Dev Team Lead at Themefisher. Eight years of building fast, elegant websites, themes and open-source tools used by thousands of developers."
+    "meta_description": "Somrat Sorkar · Senior Web Developer & Dev Team Lead at Themefisher. Eight years of building fast, elegant websites, themes and open-source tools used by thousands of developers."
   },
 
   "llms": {

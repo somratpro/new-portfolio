@@ -1,5 +1,6 @@
-// Portfolio interactions: scroll reveal, count-up stats, cycling hero word,
-// scrollspy and header elevation. Respects prefers-reduced-motion.
+// Portfolio interactions: scroll reveal, count-up stats, Aceternity 3D flip words,
+// Aceternity timeline tracing beam, spotlight cards, and header elevation.
+// Respects prefers-reduced-motion.
 
 const prefersReducedMotion = () =>
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -35,18 +36,14 @@ function initReveal() {
         if (entry.isIntersecting) {
           entry.target.classList.add("is-revealed");
           observer.unobserve(entry.target);
-          // if the animation timeline is throttled (background/hidden tab),
-          // the transition may never run — stamp the final state as a fallback.
-          // translate-y-* compiles to the standalone `translate` property in
-          // Tailwind v4, so that's what has to be reset here, not `transform`.
           setTimeout(() => {
             entry.target.style.opacity = "1";
             entry.target.style.translate = "0";
-          }, 2000);
+          }, 800);
         }
       });
     },
-    { threshold: 0.12, rootMargin: "0px 0px -40px 0px" },
+    { threshold: 0.1, rootMargin: "0px 0px -30px 0px" },
   );
 
   remaining.forEach((el) => observer.observe(el));
@@ -62,7 +59,7 @@ function animateCount(el) {
     return;
   }
 
-  const duration = 1400;
+  const duration = 1200;
   const start = performance.now();
 
   const tick = (now) => {
@@ -90,88 +87,127 @@ function initCounters() {
         }
       });
     },
-    { threshold: 0.5 },
+    { threshold: 0.4 },
   );
 
   counters.forEach((el) => observer.observe(el));
 }
 
-/* -------------------------------------------------- cycling hero word */
-// swaps the accent word with a highlighter-style ink sweep behind it and a
-// soft blur crossfade — plain inline text throughout, so nothing ever clips
-// descenders the way a fixed-height vertical roll would.
-function initWordCycle() {
-  const cycle = document.querySelector("[data-word-cycle]");
-  if (!cycle || cycle.dataset.cycling) return;
+/* -------------------------------------------------- Aceternity Encrypted Text / Interactive Word Morph */
+function initScrambleWord() {
+  const container = document.querySelector("[data-scramble-word]");
+  if (!container || container.dataset.scrambleBound) return;
+  container.dataset.scrambleBound = "true";
+
+  const textEl = container.querySelector("[data-scramble-text]");
+  if (!textEl) return;
 
   let words = [];
   try {
-    words = JSON.parse(cycle.dataset.words || "[]");
+    words = JSON.parse(container.dataset.words || "[]");
   } catch {
     words = [];
   }
-  if (words.length < 2) return;
-
-  const textEl = cycle.querySelector("[data-word-text]");
-  const bar = cycle.querySelector("[data-word-highlight]");
-  if (!textEl || !bar) return;
-
-  cycle.dataset.cycling = "true";
-  let index = 0;
-
-  const setWidth = () => {
-    cycle.style.width = `${textEl.scrollWidth}px`;
-  };
-
-  const ready = document.fonts?.ready ?? Promise.resolve();
-  ready.then(setWidth);
-  window.addEventListener("resize", setWidth);
-
-  if (prefersReducedMotion()) {
-    const timer = setInterval(() => {
-      index = (index + 1) % words.length;
-      textEl.textContent = words[index];
-      setWidth();
-    }, 2600);
-    document.addEventListener(
-      "astro:before-swap",
-      () => clearInterval(timer),
-      { once: true },
-    );
-    return;
+  if (!words.length) {
+    words = [
+      container.dataset.scrambleWord || textEl.textContent.trim() || "elegant",
+    ];
   }
 
-  const swap = () => {
-    textEl.classList.replace("opacity-100", "opacity-0");
-    textEl.classList.replace("blur-none", "blur-[6px]");
-    bar.classList.replace("scale-x-100", "scale-x-0");
+  let currentIndex = 0;
+  const chars = "!<>-_\\/[]{}~=+*^?#0123456789";
+  let frame = 0;
+  let rafId = null;
+  let isRunning = false;
 
-    setTimeout(() => {
-      index = (index + 1) % words.length;
-      textEl.textContent = words[index];
-      setWidth();
+  const transitionToWord = (targetWord) => {
+    if (prefersReducedMotion()) {
+      textEl.textContent = targetWord;
+      return;
+    }
+    isRunning = true;
+    frame = 0;
+    const totalFrames = 18;
+    const fromWord = textEl.textContent.trim();
+    const maxLen = Math.max(fromWord.length, targetWord.length);
 
-      // next frame so the browser registers the new text before transitioning in
-      requestAnimationFrame(() => {
-        textEl.classList.replace("opacity-0", "opacity-100");
-        textEl.classList.replace("blur-[6px]", "blur-none");
-        requestAnimationFrame(() => {
-          bar.classList.replace("scale-x-0", "scale-x-100");
-        });
-      });
-    }, 260);
+    const update = () => {
+      frame++;
+      const progress = frame / totalFrames;
+      let output = "";
+
+      for (let i = 0; i < maxLen; i++) {
+        if (i < targetWord.length && progress > (i + 1) / (targetWord.length + 1)) {
+          output += targetWord[i];
+        } else if (i < targetWord.length || i < fromWord.length) {
+          output += chars[Math.floor(Math.random() * chars.length)];
+        }
+      }
+
+      textEl.textContent = output;
+
+      if (frame < totalFrames) {
+        rafId = requestAnimationFrame(update);
+      } else {
+        textEl.textContent = targetWord;
+        isRunning = false;
+      }
+    };
+
+    cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(update);
   };
 
-  const timer = setInterval(swap, 2800);
+  const advance = () => {
+    if (isRunning) return;
+    currentIndex = (currentIndex + 1) % words.length;
+    transitionToWord(words[currentIndex]);
+  };
 
-  document.addEventListener(
-    "astro:before-swap",
-    () => {
-      clearInterval(timer);
-      window.removeEventListener("resize", setWidth);
-    },
-    { once: true },
-  );
+  container.addEventListener("mouseenter", advance);
+  container.addEventListener("click", advance);
+}
+
+/* -------------------------------------------------- spotlight cards */
+function initSpotlightCards() {
+  const cards = document.querySelectorAll("[data-spotlight]");
+  if (!cards.length) return;
+
+  const finePointer = window.matchMedia(
+    "(hover: hover) and (pointer: fine)",
+  ).matches;
+  if (!finePointer || prefersReducedMotion()) return;
+
+  cards.forEach((card) => {
+    card.addEventListener("mousemove", (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      card.style.setProperty("--mouse-x", `${x}px`);
+      card.style.setProperty("--mouse-y", `${y}px`);
+    });
+  });
+}
+
+/* -------------------------------------------------- copy button */
+function initCopyButtons() {
+  const buttons = document.querySelectorAll("[data-copy-text]");
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const text = btn.dataset.copyText;
+      if (!text) return;
+      try {
+        await navigator.clipboard.writeText(text);
+        const original = btn.innerHTML;
+        btn.innerHTML = `<span class="inline-flex items-center gap-1 text-emerald-500 font-semibold"><span>✓</span><span>Copied!</span></span>`;
+        setTimeout(() => {
+          btn.innerHTML = original;
+        }, 2200);
+      } catch (err) {
+        console.error("Failed to copy", err);
+      }
+    });
+  });
 }
 
 /* -------------------------------------------------- hero interactivity */
@@ -186,7 +222,7 @@ function initHeroInteractions() {
     "(hover: hover) and (pointer: fine)",
   ).matches;
 
-  // cursor spotlight: the orb lazily follows the mouse
+  // cursor spotlight: ambient background tracks mouse gently
   if (orb && finePointer) {
     let targetX = 0;
     let targetY = 0;
@@ -195,8 +231,8 @@ function initHeroInteractions() {
     let rafId = null;
 
     const glide = () => {
-      x += (targetX - x) * 0.06;
-      y += (targetY - y) * 0.06;
+      x += (targetX - x) * 0.05;
+      y += (targetY - y) * 0.05;
       orb.style.transform = `translate3d(${x}px, ${y}px, 0)`;
       if (Math.abs(targetX - x) + Math.abs(targetY - y) > 0.5) {
         rafId = requestAnimationFrame(glide);
@@ -211,9 +247,13 @@ function initHeroInteractions() {
 
     hero.addEventListener("mousemove", (e) => {
       const rect = hero.getBoundingClientRect();
+      const mouseX = e.clientX - rect.left;
+      const mouseY = e.clientY - rect.top;
+      hero.style.setProperty("--hero-mouse-x", `${mouseX}px`);
+      hero.style.setProperty("--hero-mouse-y", `${mouseY}px`);
       orb.classList.add("is-tracked");
-      targetX = (e.clientX - rect.width * 0.72) * 0.55;
-      targetY = (e.clientY - rect.top - rect.height * 0.35) * 0.55;
+      targetX = (e.clientX - rect.width * 0.7) * 0.4;
+      targetY = (e.clientY - rect.top - rect.height * 0.3) * 0.4;
       wake();
     });
 
@@ -224,7 +264,7 @@ function initHeroInteractions() {
     });
   }
 
-  // scroll parallax: hero content drifts down and fades as you scroll away
+  // scroll parallax: subtle fade
   if (inner) {
     let ticking = false;
     const onScroll = () => {
@@ -234,8 +274,7 @@ function initHeroInteractions() {
         ticking = false;
         const heroHeight = hero.offsetHeight || 1;
         const y = Math.min(window.scrollY, heroHeight);
-        inner.style.transform = `translate3d(0, ${y * 0.18}px, 0)`;
-        inner.style.opacity = String(Math.max(0, 1 - y / (heroHeight * 0.85)));
+        inner.style.opacity = String(Math.max(0, 1 - y / (heroHeight * 0.95)));
       });
     };
     onScroll();
@@ -247,8 +286,8 @@ function initHeroInteractions() {
     hero.querySelectorAll(".hero-cta .btn").forEach((btn) => {
       btn.addEventListener("mousemove", (e) => {
         const rect = btn.getBoundingClientRect();
-        const dx = (e.clientX - rect.left - rect.width / 2) * 0.22;
-        const dy = (e.clientY - rect.top - rect.height / 2) * 0.38;
+        const dx = (e.clientX - rect.left - rect.width / 2) * 0.18;
+        const dy = (e.clientY - rect.top - rect.height / 2) * 0.28;
         btn.style.transform = `translate(${dx}px, ${dy}px)`;
       });
       btn.addEventListener("mouseleave", () => {
@@ -338,7 +377,9 @@ function initMobileMenu() {
 function init() {
   initReveal();
   initCounters();
-  initWordCycle();
+  initScrambleWord();
+  initSpotlightCards();
+  initCopyButtons();
   initHeroInteractions();
   initMobileMenu();
   initScrollspy();

@@ -1,5 +1,4 @@
 ---
-import SectionLabel from "@/components/SectionLabel.astro";
 import { markdownify } from "@/lib/utils/textConverter";
 import { FaGithub } from "react-icons/fa6";
 
@@ -12,32 +11,26 @@ interface Stat {
 }
 ---
 
-<section id="opensource" class="section scroll-mt-24 pt-0">
+<section id="opensource" class="section scroll-mt-24 pt-4">
   <div class="container">
     <div
-      class="reveal rounded-3xl bg-dark p-10 md:p-14 lg:p-16 dark:border dark:border-darkmode-border dark:bg-darkmode-light"
+      class="reveal rounded-3xl border border-border/80 bg-light/50 p-8 shadow-xs md:p-12 lg:p-14 dark:border-darkmode-border/80 dark:bg-darkmode-light/40"
       data-reveal
     >
-      <div class="grid gap-x-10 gap-y-10 lg:grid-cols-12 lg:items-center">
+      <div class="grid gap-x-12 gap-y-10 lg:grid-cols-12 lg:items-center">
         <div class="lg:col-span-5">
-          <SectionLabel
-            index="06"
-            text={opensource.subtitle}
-            invert
-            className="mb-4"
-          />
           <h2
-            class="mb-5 text-h3 text-light md:text-h2 dark:text-darkmode-text-dark [&_em]:text-darkmode-accent"
+            class="mb-4 font-secondary text-3xl font-bold tracking-tight text-text-dark md:text-4xl lg:text-5xl [&_em]:text-accent [&_em]:not-italic dark:text-darkmode-text-dark dark:[&_em]:text-darkmode-accent"
             set:html={markdownify(opensource.title)}
           />
           <p
-            class="mb-8 text-light/70 dark:text-darkmode-text"
+            class="mb-8 text-base leading-relaxed text-text dark:text-darkmode-text"
             set:html={markdownify(opensource.content)}
           />
           {
             opensource.button.enable && (
               <a
-                class="btn btn-invert"
+                class="btn btn-primary"
                 href={opensource.button.link}
                 target="_blank"
                 rel="noopener"
@@ -49,15 +42,15 @@ interface Stat {
           }
         </div>
         <div class="lg:col-span-7">
-          <div class="grid grid-cols-2 gap-x-8 gap-y-10">
+          <div class="grid grid-cols-2 gap-6 sm:gap-8">
             {
               opensource.stats.map((stat: Stat) => (
-                <div>
-                  <span class="font-secondary mb-2 block text-[clamp(2.6rem,4.5vw,3.9rem)] leading-none text-darkmode-accent">
+                <div class="rounded-2xl border border-border/60 bg-body/70 p-6 dark:border-darkmode-border/60 dark:bg-darkmode-body/60">
+                  <span class="mb-1 block font-secondary text-3xl font-bold tracking-tight text-accent sm:text-4xl lg:text-5xl dark:text-darkmode-accent">
                     <span data-count={stat.value}>{stat.value}</span>
                     {stat.suffix}
                   </span>
-                  <span class="block text-sm text-light/60 dark:text-darkmode-text-light">
+                  <span class="block text-xs font-medium text-text-light sm:text-sm dark:text-darkmode-text-light">
                     {stat.label}
                   </span>
                 </div>

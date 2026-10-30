@@ -1,18 +1,16 @@
 ---
-import SectionLabel from "@/components/SectionLabel.astro";
 import { markdownify } from "@/lib/utils/textConverter";
 
 const { skills } = Astro.props;
 ---
 
-<section id="skills" class="section scroll-mt-24 pt-0">
+<section id="skills" class="section scroll-mt-24 pt-4">
   <div class="container">
-    <SectionLabel index="03" text={skills.subtitle} className="mb-4" />
     <h2
-      class="reveal mb-14 text-h3 md:text-h2 [&_em]:text-accent dark:[&_em]:text-darkmode-accent"
+      class="reveal mb-12 font-secondary text-3xl font-bold tracking-tight text-text-dark md:text-4xl lg:text-5xl [&_em]:text-accent [&_em]:not-italic dark:text-darkmode-text-dark dark:[&_em]:text-darkmode-accent"
       set:html={markdownify(skills.title)}
       data-reveal
-      style="--reveal-delay:.08s"
+      style="--reveal-delay:.06s"
     />
 
     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -20,21 +18,20 @@ const { skills } = Astro.props;
         skills.groups.map(
           (group: { name: string; items: string[] }, index: number) => (
             <div
-              class="reveal"
+              class="reveal rounded-2xl border border-border/80 bg-light/30 p-6 transition-all duration-300 hover:border-accent/40 hover:bg-light/60 dark:border-darkmode-border/80 dark:bg-darkmode-light/30 dark:hover:border-darkmode-accent/40 dark:hover:bg-darkmode-light/60"
               data-reveal
-              style={`--reveal-delay:${index * 0.08}s`}
+              data-spotlight
+              style={`--reveal-delay:${index * 0.06}s`}
             >
-              <div class="h-full border-t border-text-dark pt-6 dark:border-darkmode-text-dark">
-                <h3 class="mb-5 font-mono text-[0.72rem] font-medium tracking-[0.2em] text-text-light uppercase dark:text-darkmode-text-light">
-                  {group.name}
-                </h3>
-                <ul>
-                  {group.items.map((item: string) => (
-                    <li class="py-1.5 text-lg text-text-dark before:mr-2.5 before:text-accent before:content-['—'] dark:text-darkmode-text-dark dark:before:text-darkmode-accent">
-                      {item}
-                    </li>
-                  ))}
-                </ul>
+              <h3 class="mb-4 font-mono text-xs font-semibold tracking-wider text-text-light uppercase dark:text-darkmode-text-light">
+                {group.name}
+              </h3>
+              <div class="flex flex-wrap gap-2">
+                {group.items.map((item: string) => (
+                  <span class="inline-flex items-center rounded-lg border border-border/70 bg-body/80 px-2.5 py-1 text-xs font-medium text-text-dark transition-colors hover:border-accent/40 hover:text-accent dark:border-darkmode-border/70 dark:bg-darkmode-body/80 dark:text-darkmode-text dark:hover:text-darkmode-accent">
+                    {item}
+                  </span>
+                ))}
               </div>
             </div>
           ),

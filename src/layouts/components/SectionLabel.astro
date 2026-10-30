@@ -1,27 +1,22 @@
 ---
 interface Props {
-  index: string;
   text: string;
-  invert?: boolean;
   className?: string;
+  index?: string;
+  invert?: boolean;
 }
 
-const { index, text, invert = false, className = "" } = Astro.props;
+const { text, className = "" } = Astro.props;
 ---
 
-<p
+<div
   class:list={[
-    "reveal inline-flex items-center gap-2 font-mono text-[0.72rem] uppercase tracking-[0.22em]",
-    invert ? "text-light/80" : "text-text-light dark:text-darkmode-text-light",
+    "inline-flex items-center gap-2 rounded-full border border-border/80 bg-light/70 px-3 py-1 text-xs font-medium text-text-dark dark:border-darkmode-border/80 dark:bg-darkmode-light/70 dark:text-darkmode-text",
     className,
   ]}
-  data-reveal
 >
   <span
-    class={invert
-      ? "text-darkmode-accent"
-      : "text-accent dark:text-darkmode-accent"}>{index}</span
-  >
-  <span class="opacity-60" aria-hidden="true">/</span>
-  {text}
-</p>
+    class="h-1.5 w-1.5 rounded-full bg-accent dark:bg-darkmode-accent"
+    aria-hidden="true"></span>
+  <span>{text}</span>
+</div>

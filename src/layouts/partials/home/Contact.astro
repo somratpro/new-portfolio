@@ -12,35 +12,34 @@ const ghostSocials =
   "social-icons [&_li_a]:rounded-full [&_li_a]:border [&_li_a]:border-border [&_li_a]:bg-transparent [&_li_a]:text-text-dark [&_li_a]:transition [&_li_a:hover]:-translate-y-0.5 [&_li_a:hover]:border-accent [&_li_a:hover]:text-accent dark:[&_li_a]:border-darkmode-border dark:[&_li_a]:text-darkmode-text-dark dark:[&_li_a:hover]:border-darkmode-accent dark:[&_li_a:hover]:text-darkmode-accent";
 ---
 
-<section id="contact" class="section scroll-mt-24 pt-0">
+<section id="contact" class="section scroll-mt-24 pt-4">
   <div class="container">
-    <div class="text-center">
+    <div class="mx-auto max-w-2xl text-center">
       <SectionLabel
-        index="08"
         text={contact.subtitle}
-        className="mb-4 justify-center"
+        className="mb-4"
       />
       <h2
-        class="reveal mb-6 text-h2-sm md:text-h1 [&_em]:text-accent dark:[&_em]:text-darkmode-accent"
+        class="reveal mb-4 font-secondary text-3xl font-bold tracking-tight text-text-dark md:text-4xl lg:text-5xl [&_em]:text-accent [&_em]:not-italic dark:text-darkmode-text-dark dark:[&_em]:text-darkmode-accent"
         set:html={markdownify(contact.title)}
         data-reveal
-        style="--reveal-delay:.08s"
+        style="--reveal-delay:.06s"
       />
       <p
-        class="reveal mx-auto mb-12 max-w-xl"
+        class="reveal mx-auto mb-10 max-w-xl text-base text-text leading-relaxed md:text-lg dark:text-darkmode-text"
         set:html={markdownify(contact.content)}
         data-reveal
-        style="--reveal-delay:.16s"
+        style="--reveal-delay:.12s"
       />
 
       <form
-        class="reveal mx-auto max-w-xl text-left"
+        class="reveal rounded-2xl border border-border/80 bg-light/40 p-6 text-left shadow-xs md:p-8 dark:border-darkmode-border/80 dark:bg-darkmode-light/30"
         method="POST"
         action={config.params.contact_form_action}
         data-reveal
-        style="--reveal-delay:.24s"
+        style="--reveal-delay:.18s"
       >
-        <div class="mb-6 grid gap-6 sm:grid-cols-2">
+        <div class="mb-5 grid gap-5 sm:grid-cols-2">
           <div>
             <label for="name" class="form-label">Name</label>
             <input
@@ -66,14 +65,14 @@ const ghostSocials =
             />
           </div>
         </div>
-        <div class="mb-8">
+        <div class="mb-6">
           <label for="message" class="form-label">Message</label>
           <textarea
             id="message"
             name="message"
             rows="5"
             class="form-input"
-            placeholder="Tell me about your project…"
+            placeholder="Tell me about your project or team..."
             required></textarea>
         </div>
         <input
@@ -81,8 +80,10 @@ const ghostSocials =
           name="_subject"
           value="New message from somrat.netlify.app"
         />
-        <div class="flex flex-wrap items-center justify-center gap-5">
-          <button type="submit" class="btn btn-primary">Send message</button>
+        <div class="flex flex-wrap items-center justify-center gap-4">
+          <button type="submit" class="btn btn-primary">
+            Send message
+          </button>
           {
             contact.buttons.map(
               (button: { enable: boolean; label: string; link: string }) =>
@@ -102,22 +103,34 @@ const ghostSocials =
       </form>
 
       <div
-        class="reveal mt-14 flex flex-wrap items-center justify-center text-sm text-text-light dark:text-darkmode-text-light"
+        class="reveal mt-10 flex flex-wrap items-center justify-center gap-3 text-xs font-medium text-text-light dark:text-darkmode-text-light"
         data-reveal
-        style="--reveal-delay:.32s"
+        style="--reveal-delay:.24s"
       >
-        <span>
+        <span class="inline-flex items-center gap-2 rounded-full border border-border/60 bg-light/50 px-3.5 py-1.5 dark:border-darkmode-border/60 dark:bg-darkmode-light/50">
           <FaLocationDot
-            className="mr-2 inline-block h-3.5 w-3.5 text-accent dark:text-darkmode-accent"
+            className="h-3 w-3 text-accent dark:text-darkmode-accent"
           />
           {contact.location}
         </span>
+        <button
+          type="button"
+          class="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-light/50 px-3.5 py-1.5 text-xs font-semibold text-text-dark transition-all hover:border-accent hover:text-accent dark:border-darkmode-border/60 dark:bg-darkmode-light/50 dark:text-darkmode-text dark:hover:border-darkmode-accent dark:hover:text-darkmode-accent cursor-pointer"
+          data-copy-text="abdulmonnafsomrat@gmail.com"
+          title="Click to copy email address"
+        >
+          <svg class="h-3.5 w-3.5 opacity-75" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="14" height="14" x="8" y="8" rx="2" ry="2"/>
+            <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
+          </svg>
+          <span>abdulmonnafsomrat@gmail.com</span>
+        </button>
       </div>
 
       <div
-        class="reveal mt-10 flex justify-center"
+        class="reveal mt-8 flex justify-center"
         data-reveal
-        style="--reveal-delay:.4s"
+        style="--reveal-delay:.3s"
       >
         <Social source={social.main} className={ghostSocials} />
       </div>
