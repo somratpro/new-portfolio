@@ -6,6 +6,7 @@ import { FaAws, FaCloud, FaGitAlt } from "react-icons/fa6";
 import {
   SiAstro,
   SiBootstrap,
+  SiGooglecalendar,
   SiHugo,
   SiJavascript,
   SiJekyll,
@@ -95,10 +96,13 @@ const ghostSocials =
       <span>{titleBefore.trim()}</span>{" "}
       {highlightWord && (
         <span
-          class="group/scramble relative inline-block cursor-pointer align-baseline select-none"
+          class="group/scramble relative inline-block cursor-pointer align-baseline select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/70 dark:focus-visible:ring-darkmode-accent/70 rounded-sm"
           data-scramble-word={highlightWord}
           data-words={JSON.stringify(scrambleWords)}
           title="Hover or tap to reveal next word"
+          tabindex="0"
+          role="button"
+          aria-label="Hover, click, or press to reveal next word"
         >
           <span
             class="relative z-10 bg-linear-to-r from-accent via-sky-400 to-accent bg-size-[200%_auto] bg-clip-text font-bold text-transparent animate-shimmer dark:from-darkmode-accent dark:via-sky-200 dark:to-darkmode-accent"
@@ -122,17 +126,34 @@ const ghostSocials =
 
     <div class="hero-cta flex flex-wrap items-center gap-4">
       {hero.buttons.map(
-        (button: { enable: boolean; label: string; link: string }, i: number) =>
-          button.enable && (
-            <a
-              class={`btn ${i === 0 ? "btn-primary" : "btn-outline-primary"}`}
-              href={button.link}
-              target={button.link.startsWith("http") ? "_blank" : "_self"}
-              rel="noopener"
-            >
-              {button.label}
-            </a>
-          ),
+        (
+          button: { enable: boolean; label: string; link: string },
+          i: number,
+        ) => {
+          const isCalendar =
+            button.link.includes("calendar.google.com") ||
+            button.link.includes("calendar.app.google");
+          return (
+            button.enable && (
+              <a
+                class={`btn ${i === 0 ? "btn-primary" : "btn-outline-primary"}`}
+                href={button.link}
+                target={button.link.startsWith("http") ? "_blank" : "_self"}
+                rel={
+                  button.link.startsWith("http")
+                    ? "noopener noreferrer"
+                    : undefined
+                }
+                data-calendar-booking={isCalendar ? "30" : undefined}
+              >
+                {isCalendar && (
+                  <SiGooglecalendar className="mr-2 inline-block h-4 w-4 shrink-0 text-accent dark:text-darkmode-accent" />
+                )}
+                {button.label}
+              </a>
+            )
+          );
+        },
       )}
       <Social source={social.main} className={ghostSocials} />
     </div>

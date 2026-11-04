@@ -108,13 +108,20 @@ function initScrambleWord() {
   } catch {
     words = [];
   }
+  // Deduplicate and sanitize words
+  words = Array.from(
+    new Set(words.map((w) => String(w).trim()).filter(Boolean)),
+  );
   if (!words.length) {
     words = [
       container.dataset.scrambleWord || textEl.textContent.trim() || "elegant",
     ];
   }
 
-  let currentIndex = 0;
+  const initialWord = textEl.textContent.trim();
+  let currentIndex = words.indexOf(initialWord);
+  if (currentIndex === -1) currentIndex = 0;
+
   const chars = "!<>-_\\/[]{}~=+*^?#0123456789";
   let frame = 0;
   let rafId = null;
@@ -137,7 +144,10 @@ function initScrambleWord() {
       let output = "";
 
       for (let i = 0; i < maxLen; i++) {
-        if (i < targetWord.length && progress > (i + 1) / (targetWord.length + 1)) {
+        if (
+          i < targetWord.length &&
+          progress > (i + 1) / (targetWord.length + 1)
+        ) {
           output += targetWord[i];
         } else if (i < targetWord.length || i < fromWord.length) {
           output += chars[Math.floor(Math.random() * chars.length)];
@@ -159,13 +169,22 @@ function initScrambleWord() {
   };
 
   const advance = () => {
-    if (isRunning) return;
-    currentIndex = (currentIndex + 1) % words.length;
+    if (isRunning || words.length <= 1) return;
+    const currentWord = textEl.textContent.trim();
+    do {
+      currentIndex = (currentIndex + 1) % words.length;
+    } while (words[currentIndex] === currentWord && words.length > 1);
     transitionToWord(words[currentIndex]);
   };
 
   container.addEventListener("mouseenter", advance);
   container.addEventListener("click", advance);
+  container.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      advance();
+    }
+  });
 }
 
 /* -------------------------------------------------- spotlight cards */
@@ -210,7 +229,98 @@ function initCopyButtons() {
   });
 }
 
-/* -------------------------------------------------- hero interactivity */
+/* --------------------- google calendar booking & modal */
+function initCalendarBooking() {
+  const modal = document.getElementById("calendar-modal");
+  const iframe = document.getElementById("calendar-modal-iframe");
+  const loader = document.getElementById("calendar-modal-loader");
+  const closeBtn = document.getElementById("calendar-modal-close");
+
+  const openModal = () => {
+    if (!modal) return false;
+
+    // Lazy load the iframe only upon opening
+    if (
+      iframe &&
+      (!iframe.getAttribute("src") ||
+        iframe.getAttribute("src") === "about:blank")
+    ) {
+      const targetSrc = iframe.dataset.src;
+      if (targetSrc) {
+        iframe.src = targetSrc;
+        iframe.onload = () => {
+          if (loader) {
+            loader.classList.add("opacity-0", "pointer-events-none");
+            setTimeout(() => loader.classList.add("hidden"), 300);
+          }
+          iframe.classList.remove("opacity-0");
+          iframe.classList.add("opacity-100");
+        };
+      }
+    }
+
+    if (typeof modal.showModal === "function") {
+      modal.showModal();
+    } else {
+      modal.setAttribute("open", "");
+    }
+    document.documentElement.classList.add("overflow-hidden");
+    return true;
+  };
+
+  const closeModal = () => {
+    if (!modal) return;
+    if (typeof modal.close === "function") {
+      modal.close();
+    } else {
+      modal.removeAttribute("open");
+    }
+    document.documentElement.classList.remove("overflow-hidden");
+  };
+
+  if (modal && !modal.dataset.modalBound) {
+    modal.dataset.modalBound = "true";
+
+    if (closeBtn) {
+      closeBtn.addEventListener("click", closeModal);
+    }
+
+    // Dismiss when clicking outside modal box (backdrop)
+    modal.addEventListener("click", (e) => {
+      const rect = modal.getBoundingClientRect();
+      const isInside =
+        rect.top <= e.clientY &&
+        e.clientY <= rect.top + rect.height &&
+        rect.left <= e.clientX &&
+        e.clientX <= rect.left + rect.width;
+      if (!isInside) {
+        closeModal();
+      }
+    });
+
+    modal.addEventListener("close", () => {
+      document.documentElement.classList.remove("overflow-hidden");
+    });
+    modal.addEventListener("cancel", () => {
+      document.documentElement.classList.remove("overflow-hidden");
+    });
+  }
+
+  const links = document.querySelectorAll("[data-calendar-booking]");
+  links.forEach((link) => {
+    if (link.dataset.calendarBound) return;
+    link.dataset.calendarBound = "true";
+
+    link.addEventListener("click", (e) => {
+      if (modal) {
+        e.preventDefault();
+        openModal();
+      }
+    });
+  });
+}
+
+/* --------------------- hero interactivity */
 function initHeroInteractions() {
   const hero = document.querySelector(".hero");
   if (!hero || hero.dataset.interactive || prefersReducedMotion()) return;
@@ -297,7 +407,7 @@ function initHeroInteractions() {
   }
 }
 
-/* -------------------------------------------------- scrollspy */
+/* ------------------------- scrollspy */
 function initScrollspy() {
   const links = [...document.querySelectorAll(".navbar-nav .nav-link")].filter(
     (link) => (link.getAttribute("href") ?? "").startsWith("/#"),
@@ -328,7 +438,7 @@ function initScrollspy() {
   window.addEventListener("scroll", setActive, { passive: true });
 }
 
-/* -------------------------------------------------- header elevation */
+/* ------------------------- header elevation */
 function initHeader() {
   const header = document.querySelector(".header");
   if (!header) return;
@@ -341,7 +451,7 @@ function initHeader() {
   window.addEventListener("scroll", update, { passive: true });
 }
 
-/* -------------------------------------------------- mobile menu */
+/* ----------------------- mobile menu */
 function initMobileMenu() {
   const toggle = document.getElementById("nav-toggle");
   const panel = document.getElementById("mobile-menu");
@@ -373,13 +483,14 @@ function initMobileMenu() {
   setOpen(false);
 }
 
-/* -------------------------------------------------- boot */
+/* --------------------- boot */
 function init() {
   initReveal();
   initCounters();
   initScrambleWord();
   initSpotlightCards();
   initCopyButtons();
+  initCalendarBooking();
   initHeroInteractions();
   initMobileMenu();
   initScrollspy();

@@ -1,0 +1,167 @@
+---
+import { SiGooglecalendar } from "react-icons/si";
+
+interface Props {
+  scheduleUrl?: string;
+  directUrl?: string;
+}
+
+const {
+  scheduleUrl = "https://calendar.google.com/calendar/appointments/schedules/AcZssZ01XYOP1DHws78EM5gw1Pu5MDYiZDkXJY95jL2rCLkJ-ugedaW0YyMGfOIySlHQYQKQGNLDrV8L?gv=true",
+  directUrl = "https://calendar.app.google/nPe1S6675KhJ6P9r8",
+} = Astro.props;
+---
+
+<dialog
+  id="calendar-modal"
+  class="calendar-dialog fixed inset-0 m-auto z-50 w-[calc(100%-1.5rem)] max-w-4xl h-[88vh] max-h-205 rounded-2xl border border-border/80 bg-body p-0 shadow-2xl backdrop:bg-black/65 backdrop:backdrop-blur-xs open:flex flex-col dark:border-darkmode-border/80 dark:bg-darkmode-body overflow-hidden text-text-dark dark:text-darkmode-text-dark"
+  aria-labelledby="calendar-modal-title"
+>
+  <!-- Modal Header -->
+  <header class="flex items-center justify-between border-b border-border/70 px-4 py-3 sm:px-6 dark:border-darkmode-border/70 bg-light/40 dark:bg-darkmode-light/30 shrink-0">
+    <div class="flex items-center gap-3 min-w-0">
+      <div
+        class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-accent/25 bg-accent/10 text-accent dark:border-darkmode-accent/30 dark:bg-darkmode-accent/15 dark:text-darkmode-accent"
+        aria-hidden="true"
+      >
+        <SiGooglecalendar className="h-5 w-5" />
+      </div>
+      <div class="min-w-0">
+        <div class="flex items-center gap-2">
+          <h2
+            id="calendar-modal-title"
+            class="truncate font-secondary text-sm sm:text-base font-bold tracking-tight text-text-dark dark:text-darkmode-text-dark"
+          >
+            30-Min Project Discussion
+          </h2>
+          <span class="hidden md:inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-0.5 text-[0.68rem] font-semibold text-emerald-600 dark:text-emerald-400">
+            <span class="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            5:00 PM – 11:00 PM BST
+          </span>
+        </div>
+        <p class="truncate text-xs text-text-light dark:text-darkmode-text-light">
+          Google Meet video conference · Native Google Calendar
+        </p>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+      <a
+        href={directUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-1.5 rounded-lg border border-border/60 bg-body/80 px-2.5 py-1.5 text-xs font-medium text-text-light transition-all hover:border-accent hover:text-accent dark:border-darkmode-border/60 dark:bg-darkmode-body/80 dark:text-darkmode-text-light dark:hover:border-darkmode-accent dark:hover:text-darkmode-accent"
+        title="Open in new window"
+      >
+        <svg
+          class="h-3.5 w-3.5"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M15 3h6v6"></path>
+          <path d="M10 14L21 3"></path>
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+        </svg>
+        <span class="hidden sm:inline">New tab</span>
+      </a>
+
+      <button
+        type="button"
+        id="calendar-modal-close"
+        class="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-border/60 bg-body/80 text-text-light transition-all hover:border-accent hover:text-accent hover:bg-light dark:border-darkmode-border/60 dark:bg-darkmode-body/80 dark:text-darkmode-text-light dark:hover:border-darkmode-accent dark:hover:text-darkmode-accent dark:hover:bg-darkmode-light cursor-pointer"
+        aria-label="Close booking modal"
+        title="Close (Esc)"
+      >
+        <svg
+          class="h-4 w-4"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Modal Content / Iframe Frame -->
+  <div class="relative flex-1 w-full bg-light/20 dark:bg-darkmode-light/10 overflow-hidden">
+    <!-- Skeleton / Spinner -->
+    <div
+      id="calendar-modal-loader"
+      class="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-body/90 dark:bg-darkmode-body/90 z-10 transition-opacity duration-300"
+    >
+      <div
+        class="h-8 w-8 animate-spin rounded-full border-2 border-border border-t-accent dark:border-darkmode-border dark:border-t-darkmode-accent"
+        aria-hidden="true"
+      ></div>
+      <p class="text-xs font-medium text-text-light dark:text-darkmode-text-light">
+        Loading Google Calendar schedule...
+      </p>
+    </div>
+
+    <!-- Google Calendar Embed Iframe -->
+    <iframe
+      id="calendar-modal-iframe"
+      data-src={scheduleUrl}
+      class="h-full w-full border-0 opacity-0 transition-opacity duration-300"
+      sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox allow-storage-access-by-user-activation"
+      allow="camera; microphone; fullscreen; clipboard-write"
+      title="Google Calendar Appointment Scheduling"
+    ></iframe>
+  </div>
+</dialog>
+
+<style>
+  .calendar-dialog {
+    opacity: 0;
+    transform: scale(0.96);
+    transition:
+      opacity 0.22s ease-out,
+      transform 0.22s ease-out,
+      display 0.22s ease-out allow-discrete,
+      overlay 0.22s ease-out allow-discrete;
+  }
+
+  .calendar-dialog[open] {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  @starting-style {
+    .calendar-dialog[open] {
+      opacity: 0;
+      transform: scale(0.96);
+    }
+  }
+
+  .calendar-dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    opacity: 0;
+    transition:
+      opacity 0.22s ease-out,
+      display 0.22s ease-out allow-discrete,
+      overlay 0.22s ease-out allow-discrete;
+  }
+
+  .calendar-dialog[open]::backdrop {
+    opacity: 1;
+  }
+
+  @starting-style {
+    .calendar-dialog[open]::backdrop {
+      opacity: 0;
+    }
+  }
+</style>

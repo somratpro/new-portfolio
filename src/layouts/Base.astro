@@ -1,4 +1,5 @@
 ---
+import CalendarModal from "@/components/CalendarModal.astro";
 import TwSizeIndicator from "@/components/TwSizeIndicator.astro";
 import config from "@/config/config.json";
 import theme from "@/config/theme.json";
@@ -37,11 +38,9 @@ const { title, meta_title, description, image, noindex, canonical } =
 <html lang="en" class="motion-safe:scroll-smooth">
   <head>
     <!-- google tag manager -->
-    {
-      config.google_tag_manager.enable && (
-        <GoogleTagmanager id={config.google_tag_manager.gtm_id} />
-      )
-    }
+    {config.google_tag_manager.enable && (
+      <GoogleTagmanager id={config.google_tag_manager.gtm_id} />
+    )}
     <!-- favicon -->
     <link rel="icon" type="image/png" href={config.site.favicon} />
     <link rel="shortcut icon" href={config.site.favicon} />
@@ -63,7 +62,9 @@ const { title, meta_title, description, image, noindex, canonical } =
       document.documentElement.classList.add("js");
       try {
         const storedTheme = localStorage.getItem("theme");
-        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
         if (storedTheme === "dark" || (!storedTheme && prefersDark)) {
           document.documentElement.classList.add("dark");
         } else {
@@ -75,12 +76,10 @@ const { title, meta_title, description, image, noindex, canonical } =
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
     <!-- google font css - Astro 6 built-in Font API -->
-    {
-      fontEntries.map(([key]) => {
-        const cssVar = `--font-${key}` as any;
-        return <Font cssVariable={cssVar} preload />;
-      })
-    }
+    {fontEntries.map(([key]) => {
+      const cssVar = `--font-${key}` as any;
+      return <Font cssVariable={cssVar} preload />;
+    })}
 
     <!-- responsive meta -->
     <meta
@@ -175,16 +174,15 @@ const { title, meta_title, description, image, noindex, canonical } =
       Skip to content
     </a>
     {/* google tag manager noscript */}
-    {
-      config.google_tag_manager.enable && (
-        <GoogleTagmanagerNoscript id={config.google_tag_manager.gtm_id} />
-      )
-    }
+    {config.google_tag_manager.enable && (
+      <GoogleTagmanagerNoscript id={config.google_tag_manager.gtm_id} />
+    )}
     <Header />
     <main class="grow" id="main-content">
       <slot />
     </main>
     <Footer />
+    <CalendarModal />
     <TwSizeIndicator />
     <script>
       import "@/scripts/portfolio";
